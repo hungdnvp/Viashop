@@ -1,0 +1,30 @@
+.section-theme {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(219, 226, 239, 0.5),
+    0 1px 2px rgba(219, 226, 239, 0.5);
+  margin-bottom: 1.75rem;
+  margin-right: -14px;
+  margin-left: -14px;
+
+  .section-header {
+    background: #d262e3 linear-gradient(135deg, #d262e3 0, #0665d0 100%) !important;
+    padding: 0.75rem 1.25rem;
+    .section-title {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: #fff;
+    }
+  }
+
+  .section-content {
+    padding: 1.25rem 1.25rem 1px;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e2e8f2 !important;
+    .block-acc {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=&family=Roboto:wght@300;400;500;700&display=swap");
+// <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+// Inter:wght@300;400;500;600
+:root {
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --tex-color: #495057;
+  --green-color: #319795;
+  --black: #000;
+  --primary-color: #0665d0;
+  --white: #fff;
+  --header-height: 4.25rem;
+}
+html {
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-family: "Poppins", sans-serif;
+  color: var(--tex-color);
+}
+
+button,
+input,
+[tabindex] {
+  border: none;
+  outline: none;
+}
+a[href] {
+  // color: var(--tex-color);
+  text-decoration: none;
+}
+.ps-menu-icon {
+  color: var(--primary-color);
+}
+.text-strong {
+  color: #e04f1a !important;
+}
+.badge-pill {
+  font-size: 1rem;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+  color: #fff;
+  background-color: #82b54b;
+  border-radius: 10rem;
+}
+h3 {
+  margin: 0;
+  padding: 0;
+}

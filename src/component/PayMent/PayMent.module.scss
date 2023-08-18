@@ -1,0 +1,54 @@
+.wrapper {
+  padding-right: 14px;
+  .block-input {
+    position: relative;
+    padding: 1rem;
+    background: rgb(53, 56, 61);
+    border-radius: 0.25rem;
+    border-color: #ebebeb;
+    .input-code {
+      color: #fff !important;
+      background: rgba(0, 0, 0, 0.02) !important;
+      border: unset !important;
+    }
+    .btn-check-discount {
+      position: absolute;
+      right: 17px;
+      top: 15px;
+      color: #fff;
+      background-color: #319795;
+      border-color: #319795;
+    }
+  }
+  .block-payment {
+    margin-top: 12px;
+    background: rgb(53, 56, 61);
+    border-radius: 0.25rem;
+    border-color: #ebebeb;
+    padding: 1rem;
+    color: #f8f9fa !important;
+    .title {
+      margin-bottom: 1rem !important;
+      font-style: 1.125rem;
+      font-weight: 400;
+      line-height: 1.25;
+    }
+    .account {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgb(100, 102, 105);
+    }
+    .total-cost {
+      padding-top: 2rem;
+    }
+    .btn-payment {
+      width: 100%;
+      color: #fff;
+      background-color: #319795;
+      border-color: #319795;
+    }
+  }
+  .icon-ticket {
+    padding-right: 4px;
+  }
+}

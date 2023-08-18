@@ -1,0 +1,41 @@
+.wrapper {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.0625rem;
+  font-weight: 700;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  background-color: #0665d0;
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+.primary {
+  color: var(--white);
+  background-color: var(--primary-color);
+
+  &:hover {
+    background-color: #0553ab;
+    border-color: #054d9e;
+  }
+}
+
+.outline {
+  color: var(--primary);
+  border-color: currentColor;
+
+  &:hover {
+    background-color: rgba(254, 44, 85, 0.06);
+  }
+}
+.small {
+  min-width: 88px;
+  padding: 4px 16px;
+}
+.solout {
+  background-color: #e04f1a;
+  color: var(--white);
+}

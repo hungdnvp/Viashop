@@ -1,0 +1,33 @@
+.wrapper {
+  margin-top: -20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f3f8;
+  .padding-header {
+    width: 100%;
+    padding: 0 16px;
+    .heading-order {
+      width: 100%;
+      background-color: var(--green-color);
+      padding: 8px 0;
+      border-radius: 0.25rem;
+      margin-bottom: 12px;
+      h4 {
+        text-align: center;
+        margin: 0;
+        color: #fff;
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+    }
+  }
+  .block-content {
+    width: 100%;
+    display: flex;
+    .left-content {
+    }
+    .right-content {
+    }
+  }
+}
