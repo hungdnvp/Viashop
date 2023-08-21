@@ -55,17 +55,24 @@ function InfoAcc({ detail = false }) {
           <div className={cx("block-content__buy")}>
             {detail === false ? (
               <Button
-                children={
-                  <span>
-                    <i style={{ "padding-right": "8px" }}>
-                      <FontAwesomeIcon icon={faCartPlus} />
-                    </i>
-                    MUA HÀNG
-                  </span>
-                }
-                primary={true}
-              />
+                type="primary"
+                icon={<FontAwesomeIcon icon={faCartPlus} />}
+                size={"large"}
+              >
+                MUA HÀNG
+              </Button>
             ) : (
+              // <Button
+              //   children={
+              //     <span>
+              //       <i style={{ "padding-right": "8px" }}>
+              //         <FontAwesomeIcon icon={faCartPlus} />
+              //       </i>
+              //       MUA HÀNG
+              //     </span>
+              //   }
+              //   primary={true}
+              // />
               <Space>
                 <InputNumber
                   min={1}

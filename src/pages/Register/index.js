@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Input } from "antd";
 import styles from "./Register.module.scss";
@@ -9,41 +10,53 @@ import { handleRegisterApi } from "../../service/userService";
 
 const cx = classNames.bind(styles);
 const Register = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
+  const [repassword, setRePassword] = useState("");
   const [username, setUsername] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      let inputData = {
-        email: email,
-        password: password,
-        username: username,
-        phonenumber: phonenumber,
-      };
-      let data = await handleRegisterApi(inputData);
-      if (data && data.errCode !== 0) {
-        alert(data.errMessage);
-      }
-      if (data && data.errCode === 0) {
-        alert("Register successed");
-      }
-    } catch (err) {
-      if (err.response) {
-        if (err.response.data) {
-          alert(err.response.data.errMessage);
+    if (password === repassword) {
+      try {
+        let inputData = {
+          email: email,
+          password: password,
+          username: username,
+          phonenumber: phonenumber,
+        };
+        let data = await handleRegisterApi(inputData);
+        if (data && data.errCode === 0) {
+          alert("Register successed");
+          navigate("/login");
+        }
+        if (data && data.errCode !== 0) {
+          alert(data.errMessage);
+        }
+      } catch (err) {
+        console.log(err);
+        if (err.response) {
+          if (err.response.data) {
+            alert(err.response.data.errMessage);
+          }
         }
       }
+    }
+  };
+  const checkPhoneNumber = (phonenumber) => {
+    let numberRegex = /^\d+$/;
+    if (numberRegex.test(phonenumber)) {
+      setPhoneNumber(phonenumber);
     }
   };
   return (
     <div className={cx("container-login")}>
       <div className={cx("form-box")}>
         <div className={cx("form-value")}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className={cx("inputbox")}>
               <input
                 type="email"
@@ -72,18 +85,18 @@ const Register = () => {
                 name="phonenumber"
                 required
                 autoComplete="on"
-                onChange={(event) => setPhoneNumber(event.target.value)}
+                onChange={(event) => checkPhoneNumber(event.target.value)}
                 value={phonenumber}
               />
               <label htmlFor="">Số điện thoại</label>
             </div>
             <div className={cx("inputbox")}>
-              {/* <input type="password" name="password" required autoComplete="on"
-                                onChange={(event) => setPassword(event.target.value)} 
-                                value={password}
-                            /> */}
-              {/* <ion-icon name="lock-closed-outline"></ion-icon> */}
               <Input.Password
+                name="password"
+                required
+                autoComplete="off"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
@@ -92,6 +105,11 @@ const Register = () => {
             </div>
             <div className={cx("inputbox")}>
               <Input.Password
+                name="repassword"
+                required
+                autoComplete="off"
+                value={repassword}
+                onChange={(e) => setRePassword(e.target.value)}
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }

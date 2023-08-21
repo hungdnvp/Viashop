@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./HomePage.module.scss";
 import classNames from "classnames/bind";
