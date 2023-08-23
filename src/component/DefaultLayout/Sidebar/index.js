@@ -64,7 +64,7 @@ function Sidebars() {
 
             <MenuItem
               className={styles["custom-menu-item"]}
-              component={<Link to="" />}
+              component={<Link to="/account" />}
               icon={<FontAwesomeIcon icon={faUser} />}
             >
               Tài Khoản

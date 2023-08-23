@@ -6,42 +6,40 @@ import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../store/actions/authActions";
 import { handleLoginApi } from "../../service/userService";
 import classNames from "classnames/bind";
+import { message } from "antd";
 
 const cx = classNames.bind(styles);
 const Login = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [errorLogin, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let data = await handleLoginApi(email, password);
+      let data = await handleLoginApi(username, password);
       if (data && data.errCode !== 0) {
-        setError(data.errMessage);
       }
       if (data && data.errCode === 0) {
         const token = data.token;
-        console.log(token);
-        setError("");
         dispatch(loginSuccess(token));
         navigate("/", { replace: true });
       } else {
-        alert(errorLogin);
+        messageApi.info("Đăng nhập thất bại");
       }
     } catch (err) {
       if (err.response) {
         if (err.response.data) {
-          setError(err.response.data.errMessage);
+          messageApi.info(err.response.data.errMessage);
         }
       }
     }
-    console.log(errorLogin);
   };
   return (
     <div className={cx("container-login")}>
+      {contextHolder}
       <div className={cx("form-box")}>
         <div className={cx("form-value")}>
           <form onSubmit={handleSubmit}>
@@ -49,14 +47,14 @@ const Login = () => {
             <div className={cx("inputbox")}>
               {/* <ion-icon name="mail-outline" className={cx('icon-input'></ion-icon> */}
               <input
-                type="email"
-                name="email"
+                type="text"
+                name="username"
                 required
                 autoComplete="on"
-                onChange={(event) => setEmail(event.target.value)}
-                value={email}
+                onChange={(event) => setUserName(event.target.value)}
+                value={username}
               />
-              <label htmlFor="">Email</label>
+              <label htmlFor="">Tên Đăng Nhập</label>
             </div>
             <div className={cx("inputbox")}>
               {/* <ion-icon name="lock-closed-outline"></ion-icon> */}

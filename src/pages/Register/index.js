@@ -7,10 +7,12 @@ import styles from "./Register.module.scss";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import { handleRegisterApi } from "../../service/userService";
+import { message } from "antd";
 
 const cx = classNames.bind(styles);
 const Register = () => {
   const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,20 +32,22 @@ const Register = () => {
         };
         let data = await handleRegisterApi(inputData);
         if (data && data.errCode === 0) {
-          alert("Register successed");
+          messageApi.info("Register successed");
           navigate("/login");
         }
         if (data && data.errCode !== 0) {
-          alert(data.errMessage);
+          messageApi.info(data.errMessage);
         }
       } catch (err) {
         console.log(err);
         if (err.response) {
           if (err.response.data) {
-            alert(err.response.data.errMessage);
+            messageApi.info(err.response.data.errMessage);
           }
         }
       }
+    } else {
+      messageApi.info("Kiểm tra lại mật khẩu");
     }
   };
   const checkPhoneNumber = (phonenumber) => {
@@ -54,6 +58,7 @@ const Register = () => {
   };
   return (
     <div className={cx("container-login")}>
+      {contextHolder}
       <div className={cx("form-box")}>
         <div className={cx("form-value")}>
           <form onSubmit={(e) => handleSubmit(e)}>

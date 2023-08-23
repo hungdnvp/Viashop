@@ -4,7 +4,7 @@ import Register from "../pages/Register";
 import LayoutHeaderOnly from "../component/LayoutHeaderOnly";
 import Forbident from "../pages/Fobiden";
 import OrderPage from "../pages/OrderPage";
-
+import AccountPage from "../pages/AccountPage";
 function ForbidenLayout({ children }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>{children}</div>
@@ -18,6 +18,9 @@ const publicRoutes = [
   { path: "*", component: Forbident, layout: ForbidenLayout },
 ];
 
-const privateRoutes = [{ path: "/order", component: OrderPage }];
+const privateRoutes = [
+  { path: "/order", component: OrderPage },
+  { path: "/account", component: AccountPage },
+];
 
 export { publicRoutes, privateRoutes };

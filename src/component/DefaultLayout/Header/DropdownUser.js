@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
+import { logoutService } from "../../../service/userService";
 
 const cx = classNames.bind(styles);
 function DropdownUser() {
@@ -19,6 +20,7 @@ function DropdownUser() {
   const dispatch = useDispatch();
 
   const logOut = () => {
+    logoutService();
     dispatch(logout());
     navigate("/login", { replace: true });
   };
