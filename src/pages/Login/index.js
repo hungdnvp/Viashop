@@ -1,7 +1,7 @@
 import styles from "./Login.module.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../store/actions/authActions";
 import { handleLoginApi } from "../../service/userService";
@@ -10,11 +10,12 @@ import { message } from "antd";
 
 const cx = classNames.bind(styles);
 const Login = () => {
+  const { state } = useLocation();
   const [messageApi, contextHolder] = message.useMessage();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,9 +24,10 @@ const Login = () => {
       if (data && data.errCode !== 0) {
       }
       if (data && data.errCode === 0) {
-        const token = data.token;
-        dispatch(loginSuccess(token));
-        navigate("/", { replace: true });
+        console.log(data);
+        dispatch(loginSuccess(data.user));
+        // navigate("/", { replace: true });
+        navigate(state?.path || "/");
       } else {
         messageApi.info("Đăng nhập thất bại");
       }

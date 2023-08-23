@@ -13,6 +13,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import { logoutService } from "../../../service/userService";
+import Link from "antd/es/typography/Link";
 
 const cx = classNames.bind(styles);
 function DropdownUser() {
@@ -31,7 +32,10 @@ function DropdownUser() {
           <FontAwesomeIcon icon={faBars} />
         </Dropdown.Toggle>
         <Dropdown.Menu className={cx("menu")} show={false}>
-          <Dropdown.Item href="#/action-1" className={cx("item")}>
+          <Dropdown.Item
+            onClick={() => navigate("/account")}
+            className={cx("item")}
+          >
             <FontAwesomeIcon icon={faUser} />
             <span className={cx("menu-item")}>Tài Khoản</span>
           </Dropdown.Item>

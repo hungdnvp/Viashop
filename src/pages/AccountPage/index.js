@@ -1,11 +1,13 @@
 import React from "react";
-import { Input } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
+import { Input, Button } from "antd";
 import styles from "./AccountPage.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 function AccountPage() {
+  const userInfo = useSelector((state) => state.user);
+  console.log(userInfo);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>
@@ -19,19 +21,21 @@ function AccountPage() {
           <div className={cx("detail-account")}>
             <div className={cx("item-info", "date-register")}>
               <h4>Ngày đăng kí:</h4>
-              <span>08/05/2023 16:36:30</span>
+              <span>{userInfo && userInfo.createdAt}</span>
             </div>
             <div className={cx("item-info", "name-accout")}>
               <h4>Tài khoản:</h4>
-              <span>administrator</span>
+              <span>{userInfo && userInfo.username}</span>
             </div>
             <div className={cx("item-info", "email-accoutn")}>
               <h4>Email:</h4>
-              <span>doquanghung@gmail.com</span>
+              <span>{userInfo && userInfo.email}</span>
             </div>
             <div className={cx("item-info", "balance")}>
               <h4>Số dư:</h4>
-              <span className={cx("text-strong")}>0 VNĐ</span>
+              <span className={cx("text-strong")}>
+                {userInfo && userInfo.balance} VNĐ
+              </span>
             </div>
           </div>
         </div>
@@ -51,6 +55,11 @@ function AccountPage() {
             <div className={cx("item-info")}>
               <h4>Xác nhận lại mật khẩu</h4>
               <Input type="password" />
+            </div>
+            <div className={cx("item-info", "btn-changePass")}>
+              <Button type="primary" size={"large"}>
+                Lưu lại
+              </Button>
             </div>
           </div>
         </div>

@@ -1,4 +1,7 @@
 import Home from "../pages/HomePage";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import LayoutHeaderOnly from "../component/LayoutHeaderOnly";
@@ -8,6 +11,16 @@ import AccountPage from "../pages/AccountPage";
 function ForbidenLayout({ children }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>{children}</div>
+  );
+}
+export function RequireAuth({ children }) {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const location = useLocation();
+
+  return isLoggedIn === true ? (
+    children
+  ) : (
+    <Navigate to="/login" replace state={{ path: location.pathname }} />
   );
 }
 const publicRoutes = [

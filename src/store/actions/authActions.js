@@ -1,8 +1,8 @@
 import actionTypes from "./actionTypes";
-export const loginSuccess = (token) => {
+export const loginSuccess = (user) => {
   return {
     type: actionTypes.LOGIN_SUCCESS,
-    payload: token,
+    payload: user,
   };
 };
 export const logout = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./routes";
 import DefaultLayout from "./component/DefaultLayout";
-
+import { RequireAuth } from "./routes";
 function App() {
   return (
     <BrowserRouter>
@@ -34,7 +34,9 @@ function App() {
                 path={route.path}
                 element={
                   <Layout>
-                    <Page />
+                    <RequireAuth>
+                      <Page />
+                    </RequireAuth>
                   </Layout>
                 }
               />

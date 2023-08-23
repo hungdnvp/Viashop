@@ -9,10 +9,6 @@ const cx = classNames.bind(styles);
 function Header({ transparent = false }) {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const classes = cx("wrapper", { transparent });
-  const linkStyle = {
-    color: "white",
-  };
-  console.log("isloggedIn: ", isLoggedIn);
 
   return (
     <div className={classes}>
