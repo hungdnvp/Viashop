@@ -29,7 +29,7 @@ const Login = () => {
         // navigate("/", { replace: true });
         navigate(state?.path || "/");
       } else {
-        messageApi.info("Đăng nhập thất bại");
+        messageApi.error("Đăng nhập thất bại");
       }
     } catch (err) {
       if (err.response) {

@@ -39,7 +39,10 @@ function DropdownUser() {
             <FontAwesomeIcon icon={faUser} />
             <span className={cx("menu-item")}>Tài Khoản</span>
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-2" className={cx("item")}>
+          <Dropdown.Item
+            onClick={() => navigate("/history-transaction")}
+            className={cx("item")}
+          >
             <FontAwesomeIcon icon={faClipboard} />
             <span className={cx("menu-item")}>Lịch sử giao dịch</span>
           </Dropdown.Item>

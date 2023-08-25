@@ -1,12 +1,16 @@
 import classNames from "classnames/bind";
 import styles from "./PayMent.module.scss";
 import React from "react";
+import { useState } from "react";
 import { faCircleCheck, faTicket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { Input } from "antd";
 const cx = classNames.bind(styles);
-function PayMent() {
-  const styleSpan = { color: "rgb(100, 102, 105)", "padding-top": "1rem" };
+function PayMent({ p_name, p_amount, p_unitPrice }) {
+  const [name, setName] = useState(p_name || "");
+  const [amount, setAmount] = useState(p_amount || 0);
+  const [unitPrice, setUnitPrice] = useState(p_unitPrice || 0);
+  const [totalPrice, setTotalPrice] = useState(0);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("block-input")}>
@@ -23,9 +27,9 @@ function PayMent() {
       <div className={cx("block-payment")}>
         <h4 className={cx("title")}>Tổng cộng</h4>
         <div className={cx("account")}>
-          <span>BM350 CỔ KHÁNG XMDT</span>
-          <span>X10</span>
-          <span>85.000 đ</span>
+          <span>{name}</span>
+          <span>X {amount}</span>
+          <span>{unitPrice} đ</span>
         </div>
         <span
           style={{
@@ -36,7 +40,7 @@ function PayMent() {
         >
           Tổng thanh toán
         </span>
-        <h1 className={cx("total-cost")}>850.000 đ</h1>
+        <h1 className={cx("total-cost")}>{totalPrice} đ</h1>
         <button className={cx("btn-payment", "btn")}>
           <FontAwesomeIcon className={cx("icon-ticket")} icon={faCircleCheck} />
           Thanh Toán

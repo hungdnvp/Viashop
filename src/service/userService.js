@@ -19,7 +19,12 @@ const handleRegisterApi = (inputData) => {
 const logoutService = () => {
   return axios.get("/api/logout", { withCredentials: true });
 };
-const getAccountInfo = (userId) => {
-  return axios.get(`/api/getAccountInfo?id=${userId}`);
+const handleChangePassword = (userId, currentPass, newPass) => {
+  return axios.post("/api/changePassword", { userId, currentPass, newPass });
 };
-export { handleLoginApi, handleRegisterApi, logoutService, getAccountInfo };
+export {
+  handleLoginApi,
+  handleRegisterApi,
+  logoutService,
+  handleChangePassword,
+};

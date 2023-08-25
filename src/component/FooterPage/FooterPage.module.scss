@@ -6,7 +6,6 @@
   line-height: 1.5rem;
   color: rgba(0, 0, 0, 0.54);
   font-size: 0.9rem;
-
   .right {
     .national {
       padding-right: 12px;
@@ -32,4 +31,16 @@
       display: none;
     }
   }
+}
+// .wrapper.fix {
+//   position: fixed;
+//   display: flex;
+//   justify-content: space-around;
+//   line-height: 1.5rem;
+//   color: rgba(0, 0, 0, 0.54);
+//   font-size: 0.9rem;
+//   bottom: 0;
+// }
+.fix {
+  margin-top: auto;
 }

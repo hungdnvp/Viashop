@@ -1,11 +1,11 @@
 import classNames from "classnames/bind";
 import styles from "./FooterPage.module.scss";
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const cx = classNames.bind(styles);
-function FooterPage() {
+function FooterPage({ fix = false }) {
+  const classes = fix ? cx("wrapper", "fix") : cx("wrapper");
   return (
-    <div className={cx("wrapper")}>
+    <div className={classes}>
       <div className={cx("left")}>
         © 2023 ViaShop. Tất cả quyền được bảo lưu.
       </div>

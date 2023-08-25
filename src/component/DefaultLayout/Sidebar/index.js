@@ -76,17 +76,17 @@ function Sidebars() {
             >
               <MenuItem
                 className={styles["custom-menu-item"]}
-                component={<Link to="" />}
+                component={<Link to="/banking" />}
                 icon={<FontAwesomeIcon icon={faDollarSign} />}
               >
                 Nạp tiền
               </MenuItem>
               <MenuItem
                 className={styles["custom-menu-item"]}
-                component={<Link to="" />}
+                component={<Link to="/history-transaction" />}
                 icon={<FontAwesomeIcon icon={faMoneyCheckDollar} />}
               >
-                Lịch sử nạp tiền
+                Lịch sử giao dịch
               </MenuItem>
               <MenuItem
                 className={styles["custom-menu-item"]}
