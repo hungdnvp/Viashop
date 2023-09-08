@@ -23,8 +23,8 @@ function App() {
               />
             );
           })}
-        </Routes>
-        <Routes>
+          {/* </Routes> */}
+          {/* <Routes> */}
           {privateRoutes.map((route, index) => {
             const Layout = route.layout ? route.layout : DefaultLayout;
             const Page = route.component;
@@ -33,11 +33,11 @@ function App() {
                 key={index}
                 path={route.path}
                 element={
-                  <Layout>
-                    <RequireAuth>
+                  <RequireAuth>
+                    <Layout>
                       <Page />
-                    </RequireAuth>
-                  </Layout>
+                    </Layout>
+                  </RequireAuth>
                 }
               />
             );

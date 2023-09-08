@@ -34,7 +34,7 @@ function PayMent({ p_name, p_amount, p_unitPrice }) {
         <span
           style={{
             color: "rgb(100, 102, 105)",
-            "margin-top": "1rem",
+            marginTop: "1rem",
             display: "block",
           }}
         >

@@ -1,58 +1,79 @@
 import styles from "./Login.module.scss";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../../store/actions/authActions";
+import {
+  loginSuccess,
+  toggleRememberMe,
+} from "../../store/actions/authActions";
 import { handleLoginApi } from "../../service/userService";
 import classNames from "classnames/bind";
-import { message } from "antd";
 
 const cx = classNames.bind(styles);
 const Login = () => {
   const { state } = useLocation();
-  const [messageApi, contextHolder] = message.useMessage();
+  const dispatch = useDispatch();
+
+  const userRef = useRef();
+  const errRef = useRef();
+
   const navigate = useNavigate();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
+  const [errMess, setErrMess] = useState("");
+  const [checkRemember, setcheckRemember] = useState(false);
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+  useEffect(() => {
+    setErrMess("");
+  }, [username, password]);
+  const handleRememberMeToggle = () => {
+    setcheckRemember(!checkRemember);
+    dispatch(toggleRememberMe());
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let data = await handleLoginApi(username, password);
-      if (data && data.errCode !== 0) {
-      }
       if (data && data.errCode === 0) {
-        console.log(data);
         dispatch(loginSuccess(data.user));
-        // navigate("/", { replace: true });
-        navigate(state?.path || "/");
+        navigate(state?.path || "/", { replace: true });
       } else {
-        messageApi.error("Đăng nhập thất bại");
+        setErrMess("Đăng nhập thất bại");
       }
     } catch (err) {
-      if (err.response) {
-        if (err.response.data) {
-          messageApi.info(err.response.data.errMessage);
-        }
+      if (!err?.response) {
+        setErrMess("Đăng nhập thất bại");
+      } else {
+        setErrMess("Đăng nhập thất bại");
       }
+      userRef.current.focus();
     }
   };
   return (
     <div className={cx("container-login")}>
-      {contextHolder}
       <div className={cx("form-box")}>
         <div className={cx("form-value")}>
           <form onSubmit={handleSubmit}>
+            <p
+              ref={errRef}
+              className={errMess ? cx("errmess") : cx("offscreen")}
+              aria-live="assertive"
+            >
+              {errMess}
+            </p>
             <h2>Đăng nhập</h2>
             <div className={cx("inputbox")}>
               {/* <ion-icon name="mail-outline" className={cx('icon-input'></ion-icon> */}
               <input
+                ref={userRef}
                 type="text"
-                name="username"
                 required
-                autoComplete="on"
+                autoComplete="off"
                 onChange={(event) => setUserName(event.target.value)}
                 value={username}
               />
@@ -72,7 +93,11 @@ const Login = () => {
             </div>
             <div className={cx("forget")}>
               <label htmlFor="remember">
-                <input type="checkbox" id="remember" />
+                <input
+                  type="checkbox"
+                  id="remember"
+                  onChange={handleRememberMeToggle}
+                />
                 Nhớ mật khẩu
               </label>
               <a href="/#">Quên mật khẩu</a>

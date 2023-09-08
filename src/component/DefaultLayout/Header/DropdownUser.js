@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../store/actions/authActions";
 import { faClipboard, faUser } from "@fortawesome/free-regular-svg-icons";
@@ -13,17 +13,26 @@ import Dropdown from "react-bootstrap/Dropdown";
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import { logoutService } from "../../../service/userService";
-import Link from "antd/es/typography/Link";
+import { message } from "antd";
 
 const cx = classNames.bind(styles);
 function DropdownUser() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
 
-  const logOut = () => {
-    logoutService();
-    dispatch(logout());
-    navigate("/login", { replace: true });
+  const logOut = async () => {
+    try {
+      let response = await logoutService();
+      if (response?.errCode === 0) {
+        dispatch(logout());
+        navigate("/login", { replace: true });
+      } else {
+        message.error("Đăng xuất không thành công!");
+      }
+    } catch (err) {
+      message.error("Đăng xuất không thành công!");
+    }
   };
   return (
     <div className={cx("wrapper-drop-down")}>
@@ -48,7 +57,15 @@ function DropdownUser() {
           </Dropdown.Item>
           <Dropdown.Item href="#/action-3" className={cx("item")}>
             <FontAwesomeIcon icon={faCoins} />
-            <span className={cx("menu-item")}>Số dư:</span>
+            <span className={cx("menu-item")}>
+              Số dư:
+              <span
+                className={cx("text-strong")}
+                style={{ paddingLeft: "4px" }}
+              >
+                {userInfo && userInfo.balance}
+              </span>
+            </span>
           </Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={logOut} className={cx("item")}>

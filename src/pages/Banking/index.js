@@ -49,7 +49,7 @@ function Banking() {
                   <br />
                   <span>9332630996</span>
                   <span
-                    style={{ cursor: "pointer", "padding-left": "0.25rem" }}
+                    style={{ cursor: "pointer", paddingLeft: "0.25rem" }}
                     onClick={() => {
                       navigator.clipboard.writeText("0966149309");
                     }}
@@ -63,7 +63,7 @@ function Banking() {
                   <br />
                   <span>VS88</span>
                   <span
-                    style={{ cursor: "pointer", "padding-left": "0.25rem" }}
+                    style={{ cursor: "pointer", paddingLeft: "0.25rem" }}
                     onClick={() => {
                       navigator.clipboard.writeText("0966149309");
                     }}

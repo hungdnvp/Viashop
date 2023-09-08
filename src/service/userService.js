@@ -1,30 +1,56 @@
 import axios from "./axios";
 
 const handleLoginApi = (username, password) => {
-  let result = axios.post(
-    "/api/login",
-    { username, password },
-    { withCredentials: true }
-  );
-  if (result.errCode === 0) {
-    //set JWT token to local
-    // localStorage.setItem("token", result.token);
-    // axios = axios.setAuthToken(result.token);
+  try {
+    let result = axios.post(
+      "/api/login",
+      { username, password },
+      { withCredentials: true }
+    );
+    return result;
+  } catch (err) {
+    return {
+      errCode: -1,
+      errMessage: "No Server Response",
+    };
   }
-  return result;
 };
 const handleRegisterApi = (inputData) => {
-  return axios.post("/api/register", inputData);
+  try {
+    let result = axios.post("/api/register", inputData);
+    return result;
+  } catch (err) {
+    return {
+      errCode: -1,
+      errMessage: "No Server Response",
+    };
+  }
 };
 const logoutService = () => {
-  return axios.get("/api/logout", { withCredentials: true });
+  try {
+    let data = axios.get("/api/logout", { withCredentials: true });
+    return data;
+  } catch (err) {
+    return {
+      errCode: -1,
+      errMessage: "No Server Response",
+    };
+  }
 };
 const handleChangePassword = (userId, currentPass, newPass) => {
-  return axios.post("/api/changePassword", { userId, currentPass, newPass });
+  return axios.post(
+    "/api/changePassword",
+    { userId, currentPass, newPass },
+    { withCredentials: true }
+  );
 };
+// const getAccountInfo = (userId) => {
+//   return axios.get(`/api/getAccountInfo?userId=${userId}`);
+// };
 export {
   handleLoginApi,
   handleRegisterApi,
   logoutService,
   handleChangePassword,
+  // getAccountInfo,
 };

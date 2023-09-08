@@ -1,5 +1,6 @@
-import React from "react";
+import { React } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Input, Button } from "antd";
 import styles from "./AccountPage.module.scss";
@@ -9,12 +10,13 @@ import { message } from "antd";
 
 const cx = classNames.bind(styles);
 function AccountPage() {
+  const navigate = useNavigate();
   const [currentPass, setCurrentPass] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
+  let user = useSelector((state) => state.userInfo);
 
-  const userInfo = useSelector((state) => state.user);
   const confirmChangePass = async () => {
     if (!currentPass || !newPass || !confirmPass) {
       messageApi.error("Vui lòng nhập mật khẩu");
@@ -22,11 +24,10 @@ function AccountPage() {
       if (newPass !== confirmPass) {
         messageApi.error("Vui lòng xác nhận mật khẩu trùng với mật khẩu mới");
       } else {
-        let data = await handleChangePassword(
-          userInfo.id,
-          currentPass,
-          newPass
-        );
+        let data = await handleChangePassword(user.id, currentPass, newPass);
+        if (data.errCode === -1) {
+          navigate("/login");
+        }
         if (data) {
           messageApi.info(data.errMessage);
         } else messageApi.error("Đổi mật khẩu thất bại");
@@ -47,20 +48,20 @@ function AccountPage() {
           <div className={cx("detail-account")}>
             <div className={cx("item-info", "date-register")}>
               <h4>Ngày đăng kí:</h4>
-              <span>{userInfo && userInfo.createdAt}</span>
+              <span>{user && user.createdAt}</span>
             </div>
             <div className={cx("item-info", "name-accout")}>
               <h4>Tài khoản:</h4>
-              <span>{userInfo && userInfo.username}</span>
+              <span>{user && user.username}</span>
             </div>
             <div className={cx("item-info", "email-accoutn")}>
               <h4>Email:</h4>
-              <span>{userInfo && userInfo.email}</span>
+              <span>{user && user.email}</span>
             </div>
             <div className={cx("item-info", "balance")}>
               <h4>Số dư:</h4>
               <span className={cx("text-strong")}>
-                {userInfo && userInfo.balance} VNĐ
+                {user && user.balance} VNĐ
               </span>
             </div>
           </div>

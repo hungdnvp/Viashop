@@ -17,8 +17,8 @@ function ForbidenLayout({ children }) {
 }
 export function RequireAuth({ children }) {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  console.log("isLoggedIn:", isLoggedIn);
   const location = useLocation();
-
   return isLoggedIn === true ? (
     children
   ) : (
@@ -27,17 +27,18 @@ export function RequireAuth({ children }) {
 }
 const publicRoutes = [
   { path: "/", component: Home },
-  { path: "/home", component: Home },
-  { path: "/login", component: Login, layout: LayoutHeaderOnly },
-  { path: "/register", component: Register, layout: LayoutHeaderOnly },
+  { path: "home", component: Home },
+  { path: "login", component: Login, layout: LayoutHeaderOnly },
+  { path: "register", component: Register, layout: LayoutHeaderOnly },
   { path: "*", component: Forbident, layout: ForbidenLayout },
 ];
 
 const privateRoutes = [
-  { path: "/order", component: OrderPage },
-  { path: "/account", component: AccountPage },
-  { path: "/banking", component: Banking },
-  { path: "/history-transaction", component: HistoryTransaction },
+  { path: "order", component: OrderPage },
+  { path: "account", component: AccountPage },
+  { path: "banking", component: Banking },
+  { path: "history-transaction", component: HistoryTransaction },
+  // { path: "*", component: Forbident, layout: ForbidenLayout },
 ];
 
 export { publicRoutes, privateRoutes };
