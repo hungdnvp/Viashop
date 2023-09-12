@@ -7,8 +7,9 @@ import {
   loginSuccess,
   toggleRememberMe,
 } from "../../store/actions/authActions";
-import { handleLoginApi } from "../../service/userService";
+import { handleLoginApi, autoLogin } from "../../service/userService";
 import classNames from "classnames/bind";
+import { message } from "antd";
 
 const cx = classNames.bind(styles);
 const Login = () => {
@@ -25,6 +26,16 @@ const Login = () => {
   const [checkRemember, setcheckRemember] = useState(false);
 
   useEffect(() => {
+    async function checkLogin() {
+      const response = await autoLogin();
+      if (response?.errCode === 0) {
+        navigate(state?.path || "/home", { replace: true });
+      }
+    }
+    checkLogin();
+  }, []);
+
+  useEffect(() => {
     userRef.current.focus();
   }, []);
   useEffect(() => {
@@ -38,10 +49,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let data = await handleLoginApi(username, password);
-      if (data && data.errCode === 0) {
-        dispatch(loginSuccess(data.user));
-        navigate(state?.path || "/", { replace: true });
+      const response = await handleLoginApi(username, password);
+      if (response?.errCode === 0) {
+        dispatch(loginSuccess(response.user));
+        navigate(state?.path || "/home", { replace: true });
       } else {
         setErrMess("Đăng nhập thất bại");
       }
@@ -77,7 +88,7 @@ const Login = () => {
                 onChange={(event) => setUserName(event.target.value)}
                 value={username}
               />
-              <label htmlFor="">Tên Đăng Nhập</label>
+              <label>Tên Đăng Nhập</label>
             </div>
             <div className={cx("inputbox")}>
               {/* <ion-icon name="lock-closed-outline"></ion-icon> */}
@@ -89,7 +100,7 @@ const Login = () => {
                 onChange={(event) => setPassword(event.target.value)}
                 value={password}
               />
-              <label htmlFor="">Mật khẩu</label>
+              <label>Mật khẩu</label>
             </div>
             <div className={cx("forget")}>
               <label htmlFor="remember">

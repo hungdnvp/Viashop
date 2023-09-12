@@ -5,7 +5,7 @@ const handleLoginApi = (username, password) => {
     let result = axios.post(
       "/api/login",
       { username, password },
-      { withCredentials: true }
+      { withCredentials: "include" }
     );
     return result;
   } catch (err) {
@@ -44,6 +44,15 @@ const handleChangePassword = (userId, currentPass, newPass) => {
     { withCredentials: true }
   );
 };
+const autoLogin = async () => {
+  return await axios
+    .get("api/autoLogin", {
+      credentials: "include",
+    })
+    .catch((res) => {
+      // console.log(res.statusText);
+    });
+};
 // const getAccountInfo = (userId) => {
 //   return axios.get(`/api/getAccountInfo?userId=${userId}`);
 // };
@@ -52,5 +61,6 @@ export {
   handleRegisterApi,
   logoutService,
   handleChangePassword,
+  autoLogin,
   // getAccountInfo,
 };

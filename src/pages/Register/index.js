@@ -119,7 +119,7 @@ const Register = () => {
                 onChange={(event) => setEmail(event.target.value)}
                 value={email}
               />
-              <label htmlFor="">Email</label>
+              <label>Email</label>
             </div>
             <div className={cx("inputbox")}>
               <input
@@ -161,7 +161,7 @@ const Register = () => {
                 onChange={(event) => checkPhoneNumber(event.target.value)}
                 value={phonenumber}
               />
-              <label htmlFor="">Số điện thoại</label>
+              <label>Số điện thoại</label>
             </div>
             <div className={cx("inputbox")}>
               <Input.Password
@@ -221,7 +221,7 @@ const Register = () => {
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
               />
-              <label htmlFor="">Nhập lại mật khẩu</label>
+              <label>Nhập lại mật khẩu</label>
             </div>
             <div className={cx("forget")}>
               <label htmlFor="remember">
