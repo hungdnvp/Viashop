@@ -10,26 +10,28 @@ import OrderPage from "../pages/OrderPage";
 import AccountPage from "../pages/AccountPage";
 import Banking from "../pages/Banking";
 import HistoryTransaction from "../pages/HistoryTransaction";
+import Unauthorized from "../pages/Unauthorized.js";
 function ForbidenLayout({ children }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>{children}</div>
   );
 }
-export function RequireAuth({ children }) {
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  console.log("isLoggedIn:", isLoggedIn);
-  const location = useLocation();
-  return isLoggedIn === true ? (
-    children
-  ) : (
-    <Navigate to="/login" replace state={{ path: location.pathname }} />
-  );
-}
+// export function RequireAuth({ children }) {
+//   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+//   console.log("isLoggedIn:", isLoggedIn);
+//   const location = useLocation();
+//   return isLoggedIn === true ? (
+//     children
+//   ) : (
+//     <Navigate to="/login" replace state={{ path: location.pathname }} />
+//   );
+// }
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "home", component: Home },
   { path: "login", component: Login, layout: LayoutHeaderOnly },
   { path: "register", component: Register, layout: LayoutHeaderOnly },
+  { path: "unauthorized", component: Unauthorized, layout: ForbidenLayout },
   { path: "*", component: Forbident, layout: ForbidenLayout },
 ];
 

@@ -4,10 +4,12 @@ import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
 import { Button } from "antd";
 import DropdownUser from "./DropdownUser";
-
+import useAuth from "../../../hooks/useAuth";
 const cx = classNames.bind(styles);
 function Header({ transparent = false }) {
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  // const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const { auth } = useAuth();
+  const isLoggedIn = auth?.isLoggedIn;
   const classes = cx("wrapper", { transparent });
 
   return (

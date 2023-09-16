@@ -1,12 +1,13 @@
 import { React } from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Input, Button } from "antd";
 import styles from "./AccountPage.module.scss";
 import classNames from "classnames/bind";
 import { handleChangePassword } from "../../service/userService";
 import { message } from "antd";
+import useAuth from "../../hooks/useAuth";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const cx = classNames.bind(styles);
 function AccountPage() {
@@ -15,8 +16,41 @@ function AccountPage() {
   const [newPass, setNewPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
-  let user = useSelector((state) => state.userInfo);
+  const [userInfo, setUserInfo] = useState();
 
+  const location = useLocation();
+  const { auth, setAuth } = useAuth();
+
+  const axiosPrivate = useAxiosPrivate();
+  useEffect(() => {
+    console.log("auth", auth);
+    // api check login data user
+    let isMounted = true;
+    const controller = new AbortController();
+    const getUsers = async () => {
+      try {
+        console.log("accout effect");
+        const response = await axiosPrivate.get(
+          `/api/getAccountInfo?userId=${1}`
+        );
+        if (response && response.data && isMounted) {
+          setUserInfo(response.data.data);
+        }
+      } catch (err) {
+        console.log("throw werrror");
+        console.error(err);
+        navigate("/login", { state: { from: location }, replace: true });
+      }
+    };
+
+    getUsers();
+
+    return () => {
+      console.log("return func");
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
   const confirmChangePass = async () => {
     if (!currentPass || !newPass || !confirmPass) {
       messageApi.error("Vui lòng nhập mật khẩu");
@@ -24,8 +58,12 @@ function AccountPage() {
       if (newPass !== confirmPass) {
         messageApi.error("Vui lòng xác nhận mật khẩu trùng với mật khẩu mới");
       } else {
-        let data = await handleChangePassword(user.id, currentPass, newPass);
-        if (data.errCode === -1) {
+        let data = await handleChangePassword(
+          userInfo.id,
+          currentPass,
+          newPass
+        );
+        if (data?.errCode === -1) {
           navigate("/login");
         }
         if (data) {
@@ -48,20 +86,20 @@ function AccountPage() {
           <div className={cx("detail-account")}>
             <div className={cx("item-info", "date-register")}>
               <h4>Ngày đăng kí:</h4>
-              <span>{user && user.createdAt}</span>
+              <span>{userInfo && userInfo.createdAt}</span>
             </div>
             <div className={cx("item-info", "name-accout")}>
               <h4>Tài khoản:</h4>
-              <span>{user && user.username}</span>
+              <span>{userInfo && userInfo.username}</span>
             </div>
             <div className={cx("item-info", "email-accoutn")}>
               <h4>Email:</h4>
-              <span>{user && user.email}</span>
+              <span>{userInfo && userInfo.email}</span>
             </div>
             <div className={cx("item-info", "balance")}>
               <h4>Số dư:</h4>
               <span className={cx("text-strong")}>
-                {user && user.balance} VNĐ
+                {userInfo && userInfo.balance} VNĐ
               </span>
             </div>
           </div>

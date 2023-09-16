@@ -46,9 +46,7 @@ const handleChangePassword = (userId, currentPass, newPass) => {
 };
 const autoLogin = async () => {
   return await axios
-    .get("api/autoLogin", {
-      credentials: "include",
-    })
+    .get("api/autoLogin", { withCredentials: true })
     .catch((res) => {
       // console.log(res.statusText);
     });

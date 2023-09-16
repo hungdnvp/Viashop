@@ -1,16 +1,14 @@
-.wrapper{
-    display: flex; 
-    flex-direction: column; 
-    padding-left: 250px;
-    min-height: 1000px;  
-    .header-content{
-        display: flex;
-        flex-direction: column;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding-left: 250px;
+  min-height: 1000px;
+  .header-content {
+    display: flex;
+    flex-direction: column;
 
-        .content{
-            padding-top: 80px;
-        }
+    .content {
+      padding-top: calc(var(--header-height) + 2.5rem);
     }
+  }
 }
-
-

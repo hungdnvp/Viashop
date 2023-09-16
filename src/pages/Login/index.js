@@ -2,19 +2,16 @@ import styles from "./Login.module.scss";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import {
-  loginSuccess,
-  toggleRememberMe,
-} from "../../store/actions/authActions";
+// import { useDispatch } from "react-redux";
 import { handleLoginApi, autoLogin } from "../../service/userService";
+import useAuth from "../../hooks/useAuth";
 import classNames from "classnames/bind";
-import { message } from "antd";
 
 const cx = classNames.bind(styles);
 const Login = () => {
+  const { setAuth, persist, setPersist } = useAuth();
   const { state } = useLocation();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const userRef = useRef();
   const errRef = useRef();
@@ -23,17 +20,20 @@ const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errMess, setErrMess] = useState("");
-  const [checkRemember, setcheckRemember] = useState(false);
 
   useEffect(() => {
     async function checkLogin() {
       const response = await autoLogin();
-      if (response?.errCode === 0) {
+      if (response?.accessToken) {
+        setAuth({
+          accessToken: response.accessToken,
+          isLoggedIn: true,
+        });
         navigate(state?.path || "/home", { replace: true });
       }
     }
     checkLogin();
-  }, []);
+  }, [state?.path, navigate]);
 
   useEffect(() => {
     userRef.current.focus();
@@ -41,20 +41,29 @@ const Login = () => {
   useEffect(() => {
     setErrMess("");
   }, [username, password]);
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
+
   const handleRememberMeToggle = () => {
-    setcheckRemember(!checkRemember);
-    dispatch(toggleRememberMe());
+    setPersist((prev) => !prev);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await handleLoginApi(username, password);
-      if (response?.errCode === 0) {
-        dispatch(loginSuccess(response.user));
+      const accessToken = response?.accessToken;
+      if (response?.accessToken) {
+        console.log("set accessToken: ", { accessToken });
+        setAuth({
+          accessToken: accessToken,
+          isLoggedIn: true,
+        });
         navigate(state?.path || "/home", { replace: true });
       } else {
-        setErrMess("Đăng nhập thất bại");
+        setErrMess(response?.errMessage || "Đăng nhập thất bại");
       }
     } catch (err) {
       if (!err?.response) {
@@ -108,6 +117,7 @@ const Login = () => {
                   type="checkbox"
                   id="remember"
                   onChange={handleRememberMeToggle}
+                  checked={persist}
                 />
                 Nhớ mật khẩu
               </label>
