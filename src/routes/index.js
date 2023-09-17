@@ -16,16 +16,7 @@ function ForbidenLayout({ children }) {
     <div style={{ display: "flex", justifyContent: "center" }}>{children}</div>
   );
 }
-// export function RequireAuth({ children }) {
-//   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-//   console.log("isLoggedIn:", isLoggedIn);
-//   const location = useLocation();
-//   return isLoggedIn === true ? (
-//     children
-//   ) : (
-//     <Navigate to="/login" replace state={{ path: location.pathname }} />
-//   );
-// }
+
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "home", component: Home },

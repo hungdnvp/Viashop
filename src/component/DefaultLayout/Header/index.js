@@ -7,9 +7,8 @@ import DropdownUser from "./DropdownUser";
 import useAuth from "../../../hooks/useAuth";
 const cx = classNames.bind(styles);
 function Header({ transparent = false }) {
-  // const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const { auth } = useAuth();
-  const isLoggedIn = auth?.isLoggedIn;
+  const accessToken = auth?.accessToken;
   const classes = cx("wrapper", { transparent });
 
   return (
@@ -19,7 +18,7 @@ function Header({ transparent = false }) {
           <Link to="/">VIA-SHOP</Link>
         </div>
         <div className={cx("center-content")}></div>
-        {isLoggedIn ? (
+        {accessToken ? (
           <div className={cx("current-user")}>
             <DropdownUser />
           </div>

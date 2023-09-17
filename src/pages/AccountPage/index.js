@@ -23,15 +23,13 @@ function AccountPage() {
 
   const axiosPrivate = useAxiosPrivate();
   useEffect(() => {
-    console.log("auth", auth);
-    // api check login data user
     let isMounted = true;
     const controller = new AbortController();
     const getUsers = async () => {
       try {
         console.log("accout effect");
         const response = await axiosPrivate.get(
-          `/api/getAccountInfo?userId=${1}`
+          `/api/getAccountInfo?email=${auth.email}`
         );
         if (response && response.data && isMounted) {
           setUserInfo(response.data.data);
@@ -46,29 +44,32 @@ function AccountPage() {
     getUsers();
 
     return () => {
-      console.log("return func");
       isMounted = false;
       controller.abort();
     };
   }, []);
   const confirmChangePass = async () => {
+    setCurrentPass("");
+    setConfirmPass("");
+    setNewPass("");
     if (!currentPass || !newPass || !confirmPass) {
       messageApi.error("Vui lòng nhập mật khẩu");
     } else {
       if (newPass !== confirmPass) {
         messageApi.error("Vui lòng xác nhận mật khẩu trùng với mật khẩu mới");
       } else {
-        let data = await handleChangePassword(
-          userInfo.id,
-          currentPass,
-          newPass
-        );
-        if (data?.errCode === -1) {
-          navigate("/login");
+        try {
+          const response = await axiosPrivate.post("/api/changePassword", {
+            email: auth.email,
+            currentPass,
+            newPass,
+          });
+          if (response && response.data) {
+            messageApi.info(response.data.errMessage);
+          }
+        } catch (err) {
+          messageApi.error("Đổi mật khẩu thất bại");
         }
-        if (data) {
-          messageApi.info(data.errMessage);
-        } else messageApi.error("Đổi mật khẩu thất bại");
       }
     }
   };

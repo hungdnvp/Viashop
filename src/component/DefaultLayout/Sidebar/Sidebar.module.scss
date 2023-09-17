@@ -78,6 +78,13 @@
   .custom-menu-item {
     font-size: 0.9rem;
   }
+  .custom-menu-item-first {
+    font-size: 0.9rem;
+    a {
+      padding-left: 35px;
+    }
+  }
+
   button {
     right: 20px;
   }

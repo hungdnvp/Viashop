@@ -25,7 +25,7 @@ function DropdownUser() {
       if (response?.errCode === 0) {
         setAuth({
           accessToken: null,
-          isLoggedIn: true,
+          email: null,
         });
         navigate("/login", { replace: true });
       } else {

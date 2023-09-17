@@ -26,8 +26,8 @@ const Login = () => {
       const response = await autoLogin();
       if (response?.accessToken) {
         setAuth({
+          email: response.email,
           accessToken: response.accessToken,
-          isLoggedIn: true,
         });
         navigate(state?.path || "/home", { replace: true });
       }
@@ -58,8 +58,8 @@ const Login = () => {
       if (response?.accessToken) {
         console.log("set accessToken: ", { accessToken });
         setAuth({
+          email: response.email,
           accessToken: accessToken,
-          isLoggedIn: true,
         });
         navigate(state?.path || "/home", { replace: true });
       } else {

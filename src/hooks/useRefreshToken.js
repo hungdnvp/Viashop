@@ -9,12 +9,12 @@ const useRefreshToken = () => {
       withCredentials: true,
     });
     setAuth((prev) => {
-      console.log(JSON.stringify(prev));
-      console.log(response);
-      return {
-        isLoggedIn: true,
-        accessToken: response.accessToken,
-      };
+      if (response?.accessToken) {
+        return {
+          accessToken: response.accessToken,
+          email: response.email,
+        };
+      }
     });
     return response.accessToken;
   };
