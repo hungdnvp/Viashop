@@ -66,8 +66,9 @@ const Login = () => {
         setErrMess(response?.errMessage || "Đăng nhập thất bại");
       }
     } catch (err) {
-      if (!err?.response) {
-        setErrMess("Đăng nhập thất bại");
+      if (err?.response) {
+        if (err.response.status === 429) setErrMess(err.response.data);
+        else setErrMess("Đăng nhập thất bại");
       } else {
         setErrMess("Đăng nhập thất bại");
       }
