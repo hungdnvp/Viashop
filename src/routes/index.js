@@ -1,7 +1,4 @@
 import Home from "../pages/HomePage";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import LayoutHeaderOnly from "../component/LayoutHeaderOnly";
@@ -31,7 +28,6 @@ const privateRoutes = [
   { path: "account", component: AccountPage },
   { path: "banking", component: Banking },
   { path: "history-transaction", component: HistoryTransaction },
-  // { path: "*", component: Forbident, layout: ForbidenLayout },
 ];
 
 export { publicRoutes, privateRoutes };

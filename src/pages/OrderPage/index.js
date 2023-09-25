@@ -3,9 +3,15 @@ import styles from "./OrderPage.module.scss";
 import InfoAcc from "../../component/Account";
 import PayMent from "../../component/PayMent";
 import FooterPage from "../../component/FooterPage";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 function OrderPage() {
+  const [amountFromPayMent, setAmountFromPayMent] = useState("1");
+
+  const handleAmountFromPayMent = (data) => {
+    setAmountFromPayMent(data);
+  };
   return (
     <>
       <div className={cx("wrapper")}>
@@ -18,10 +24,14 @@ function OrderPage() {
         </div>
         <div className={cx("block-content")}>
           <div className={cx("left-content", "col-md-8", "col-sm-12")}>
-            <InfoAcc detail />
+            <InfoAcc detail changeAmount={handleAmountFromPayMent} />
           </div>
           <div className={cx("right-content", "col-md-4", "col-sm-12")}>
-            <PayMent />
+            <PayMent
+              p_name={"BM350 CỔ KHÁNG XMDT"}
+              p_amount={amountFromPayMent}
+              p_unitPrice={10000}
+            />
           </div>
         </div>
       </div>

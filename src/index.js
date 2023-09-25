@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { AuthProvider } from "./context/AuthProvider";
-// import { Provider } from "react-redux";
-// import { persistor, store } from "./store";
-// import { PersistGate } from "redux-persist/integration/react";
+
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import GlobalStyles from "./component/GlobalStyle";

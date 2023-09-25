@@ -1,7 +1,6 @@
 import styles from "./ListAccount.module.scss";
 import classNames from "classnames/bind";
 import InfoAcc from "../Account";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const cx = classNames.bind(styles);
 function ListAccount() {

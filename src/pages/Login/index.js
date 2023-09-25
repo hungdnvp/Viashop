@@ -1,17 +1,17 @@
 import styles from "./Login.module.scss";
 import { Link } from "react-router-dom";
+import { Input } from "antd";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-// import { useDispatch } from "react-redux";
 import { handleLoginApi, autoLogin } from "../../service/userService";
 import useAuth from "../../hooks/useAuth";
 import classNames from "classnames/bind";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
 const cx = classNames.bind(styles);
 const Login = () => {
   const { setAuth, persist, setPersist } = useAuth();
   const { state } = useLocation();
-  // const dispatch = useDispatch();
 
   const userRef = useRef();
   const errRef = useRef();
@@ -33,7 +33,7 @@ const Login = () => {
       }
     }
     checkLogin();
-  }, [state?.path, navigate]);
+  }, []);
 
   useEffect(() => {
     userRef.current.focus();
@@ -100,15 +100,25 @@ const Login = () => {
               <label>Tên Đăng Nhập</label>
             </div>
             <div className={cx("inputbox")}>
-              {/* <ion-icon name="lock-closed-outline"></ion-icon> */}
-              <input
+              <Input.Password
+                id="password"
+                name="password"
+                required
+                autoComplete="off"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                iconRender={(visible) =>
+                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                }
+              />
+              {/* <input
                 type="password"
                 name="password"
                 required
                 autoComplete="on"
                 onChange={(event) => setPassword(event.target.value)}
                 value={password}
-              />
+              /> */}
               <label>Mật khẩu</label>
             </div>
             <div className={cx("forget")}>

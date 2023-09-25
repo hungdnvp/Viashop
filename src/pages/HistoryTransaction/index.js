@@ -3,6 +3,7 @@ import styles from "./HistoryTransaction.module.scss";
 import FooterPage from "../../component/FooterPage";
 import React, { useState } from "react";
 import { Table } from "antd";
+import { Empty } from "antd";
 
 const cx = classNames.bind(styles);
 const data = [
@@ -89,11 +90,12 @@ function HistoryTransaction() {
           </div>
           <div className={cx("block-content")}>
             <div className={cx("table-content")}>
-              <Table
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              {/* <Table
                 columns={columns}
                 dataSource={data}
                 onChange={handleChange}
-              />
+              /> */}
             </div>
           </div>
         </div>

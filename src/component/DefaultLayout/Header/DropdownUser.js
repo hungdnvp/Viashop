@@ -17,7 +17,7 @@ import { message } from "antd";
 const cx = classNames.bind(styles);
 function DropdownUser() {
   const navigate = useNavigate();
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   const logOut = async () => {
     try {

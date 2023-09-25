@@ -7,8 +7,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  --tex-color: #495057;
+  --text-color: #495057;
   --green-color: #319795;
+  --background-color-primary: #f0f3f8;
   --black: #000;
   --primary-color: #0665d0;
   --white: #fff;
@@ -20,7 +21,7 @@ html {
 body {
   font-family: "Inter", sans-serif;
   font-family: "Poppins", sans-serif;
-  color: var(--tex-color);
+  color: var(--text-color);
 }
 
 button,
@@ -30,7 +31,7 @@ input,
   outline: none;
 }
 a[href] {
-  // color: var(--tex-color);
+  // color: var(--text-color);
   text-decoration: none;
 }
 .ps-menu-icon {

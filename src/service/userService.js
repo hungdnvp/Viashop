@@ -37,13 +37,7 @@ const logoutService = () => {
     };
   }
 };
-const handleChangePassword = (userId, currentPass, newPass) => {
-  return axios.post(
-    "/api/changePassword",
-    { userId, currentPass, newPass },
-    { withCredentials: true }
-  );
-};
+
 const autoLogin = async () => {
   return await axios
     .get("api/autoLogin", { withCredentials: true })
@@ -58,7 +52,6 @@ export {
   handleLoginApi,
   handleRegisterApi,
   logoutService,
-  handleChangePassword,
   autoLogin,
   // getAccountInfo,
 };

@@ -2,9 +2,9 @@ import styles from "./Sidebar.module.scss";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, SubMenu, Menu, MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
   faClipboardCheck,
@@ -13,8 +13,6 @@ import {
   faMoneyCheckDollar,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-
-import avatar from "../../../asset/images/user-icon.webp";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -27,12 +25,14 @@ library.add(
 const cx = classNames.bind(styles);
 function Sidebars() {
   const [toggled, setToggled] = useState(false);
-  const [user] = useState();
-
+  const location = useLocation();
+  const [path, setPath] = useState(location.pathname.substring(1));
   const handleToggleSidebar = (value) => {
     setToggled(value);
   };
-
+  useEffect(() => {
+    setPath(location.pathname.substring(1));
+  }, [location.pathname]);
   return (
     <div className={cx("wrapper")}>
       <Sidebar
@@ -44,26 +44,14 @@ function Sidebars() {
         <main>
           <div className={cx("logo-item")}></div>
           <Menu>
-            {user && (
-              <div className={cx("account-infor")}>
-                <Link to="">
-                  <img
-                    className={cx("avatar-user")}
-                    src={avatar}
-                    alt="avatar"
-                  />
-                </Link>
-                <br />
-                <a href="/#">User name - ID: userId</a>
-                <div className={cx("icon-box")}>
-                  <span className={cx("member")}>Member</span>
-                  <span className={cx("balance")}>Số dư: </span>
-                </div>
-              </div>
-            )}
-
             <MenuItem
-              className={styles["custom-menu-item-first"]}
+              className={
+                path === "account"
+                  ? styles[
+                      ("custom-menu-item", "custom-menu-item-first", "active")
+                    ]
+                  : styles[("custom-menu-item", "custom-menu-item-first")]
+              }
               component={<Link to="/account" />}
               icon={<FontAwesomeIcon icon={faUser} />}
             >
@@ -75,14 +63,26 @@ function Sidebars() {
               style={{ fontWeight: "600" }}
             >
               <MenuItem
-                className={styles["custom-menu-item"]}
+                className={
+                  path === "banking"
+                    ? styles[
+                        ("custom-menu-item", "custom-menu-item-first", "active")
+                      ]
+                    : styles[("custom-menu-item", "custom-menu-item-first")]
+                }
                 component={<Link to="/banking" />}
                 icon={<FontAwesomeIcon icon={faDollarSign} />}
               >
                 Nạp tiền
               </MenuItem>
               <MenuItem
-                className={styles["custom-menu-item"]}
+                className={
+                  path === "history-transaction"
+                    ? styles[
+                        ("custom-menu-item", "custom-menu-item-first", "active")
+                      ]
+                    : styles[("custom-menu-item", "custom-menu-item-first")]
+                }
                 component={<Link to="/history-transaction" />}
                 icon={<FontAwesomeIcon icon={faMoneyCheckDollar} />}
               >

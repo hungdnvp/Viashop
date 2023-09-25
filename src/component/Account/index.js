@@ -6,8 +6,12 @@ import React, { useState } from "react";
 import { Button, InputNumber, Space } from "antd";
 const cx = classNames.bind(styles);
 
-function InfoAcc({ detail = false }) {
+function InfoAcc({ detail = false, changeAmount }) {
   const [value, setValue] = useState("1");
+  const handleChangeAmount = (value) => {
+    changeAmount(value);
+    setValue(value);
+  };
   const classes =
     detail === false
       ? cx("block-container", "short", "col-xl-3", "col-md-6")
@@ -62,28 +66,17 @@ function InfoAcc({ detail = false }) {
                 MUA HÀNG
               </Button>
             ) : (
-              // <Button
-              //   children={
-              //     <span>
-              //       <i style={{ "padding-right": "8px" }}>
-              //         <FontAwesomeIcon icon={faCartPlus} />
-              //       </i>
-              //       MUA HÀNG
-              //     </span>
-              //   }
-              //   primary={true}
-              // />
               <Space>
                 <InputNumber
                   min={1}
-                  max={10}
+                  max={100}
                   value={value}
-                  onChange={setValue}
+                  onChange={(number) => handleChangeAmount(number)}
                 />
                 <Button
                   type="primary"
                   onClick={() => {
-                    setValue(1);
+                    handleChangeAmount(1);
                   }}
                 >
                   Reset

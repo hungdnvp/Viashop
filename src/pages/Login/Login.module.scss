@@ -45,6 +45,19 @@
     }
 
     .inputbox {
+      span {
+        background-color: transparent;
+        border-style: none;
+        box-shadow: none !important;
+        &:hover {
+          border: none;
+          border-inline-end-width: 0;
+        }
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
       position: relative;
       margin: 30px 0;
       width: 310px;

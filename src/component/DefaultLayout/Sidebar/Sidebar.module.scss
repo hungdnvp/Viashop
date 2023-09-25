@@ -78,10 +78,14 @@
   .custom-menu-item {
     font-size: 0.9rem;
   }
+
+  .active {
+    background: #dfa0e9 linear-gradient(135deg, #de81ec 0, #4e98ec 100%) !important;
+  }
   .custom-menu-item-first {
     font-size: 0.9rem;
     a {
-      padding-left: 35px;
+      padding-left: 38px;
     }
   }
 

@@ -4,12 +4,19 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Input, Button } from "antd";
 import styles from "./AccountPage.module.scss";
 import classNames from "classnames/bind";
-import { handleChangePassword } from "../../service/userService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { message } from "antd";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import {
+  faCheck,
+  faInfoCircle,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
 function AccountPage() {
   const navigate = useNavigate();
   const [currentPass, setCurrentPass] = useState("");
@@ -17,11 +24,18 @@ function AccountPage() {
   const [confirmPass, setConfirmPass] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
   const [userInfo, setUserInfo] = useState();
+  const [pwdFocus, setPwdFocus] = useState(false);
+  const [validPwd, setValidPwd] = useState(false);
 
   const location = useLocation();
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
 
   const axiosPrivate = useAxiosPrivate();
+
+  useEffect(() => {
+    setValidPwd(PWD_REGEX.test(newPass));
+  }, [newPass]);
+
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -52,8 +66,9 @@ function AccountPage() {
     setCurrentPass("");
     setConfirmPass("");
     setNewPass("");
-    if (!currentPass || !newPass || !confirmPass) {
-      messageApi.error("Vui lòng nhập mật khẩu");
+    const v2 = PWD_REGEX.test(newPass);
+    if (!currentPass || !newPass || !confirmPass || !v2) {
+      messageApi.error("Vui lòng nhập mật khẩu đúng yêu cầu");
     } else {
       if (newPass !== confirmPass) {
         messageApi.error("Vui lòng xác nhận mật khẩu trùng với mật khẩu mới");
@@ -119,13 +134,48 @@ function AccountPage() {
               />
             </div>
             <div className={cx("item-info")}>
-              <h4>Mật khẩu mới</h4>
+              <h4>
+                Mật khẩu mới
+                <span style={{ paddingLeft: "1.5rem" }}>
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className={validPwd ? cx("valid") : cx("hide")}
+                  />
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    className={
+                      validPwd || !newPass ? cx("hide") : cx("invalid")
+                    }
+                  />
+                </span>
+              </h4>
               <Input
                 type="password"
                 value={newPass}
+                onFocus={() => setPwdFocus(true)}
+                onBlur={() => setPwdFocus(false)}
                 onChange={(e) => setNewPass(e.target.value)}
               />
             </div>
+            <p
+              id="pwdnote"
+              className={
+                pwdFocus && !validPwd ? cx("instructions") : cx("offscreen")
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              8 đến 24 kí tự.
+              <br />
+              Bao gồm ít nhất một kí tự in hoa và thường, một số và một kí tự
+              đặc biệt.
+              <br />
+              cho phép kí tự đặc biệt:{" "}
+              <span aria-label="exclamation mark">!</span>{" "}
+              <span aria-label="at symbol">@</span>{" "}
+              <span aria-label="hashtag">#</span>{" "}
+              <span aria-label="dollar sign">$</span>{" "}
+              <span aria-label="percent">%</span>
+            </p>
             <div className={cx("item-info")}>
               <h4>Xác nhận lại mật khẩu</h4>
               <Input

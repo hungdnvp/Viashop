@@ -72,6 +72,12 @@
               padding-left: 12px;
             }
           }
+          a {
+            color: #0665d0 !important;
+            span {
+              color: var(--text-color);
+            }
+          }
         }
       }
     }
