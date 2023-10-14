@@ -59,3 +59,17 @@
     }
   }
 }
+
+// =====================>>>>>>REPONSIVE<<<<<<<<<<<++++++++++++++
+// Mobile
+@media (max-width: 740px) {
+  .block-feature {
+    .block-content {
+      .group {
+        .input-search {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

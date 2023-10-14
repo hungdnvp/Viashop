@@ -103,3 +103,10 @@
     width: 25px;
   }
 }
+// =====================>>>>>>REPONSIVE<<<<<<<<<<<++++++++++++++
+// Mobile
+@media (max-width: 740px) {
+  .wrapper {
+    left: -250px;
+  }
+}

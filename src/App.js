@@ -29,7 +29,7 @@ function App() {
           {/* <Routes> */}
           <Route element={<PersistLogin />}>
             {privateRoutes.map((route, index) => {
-              const Layout = DefaultLayout;
+              const Layout = route.layout ? route.layout : DefaultLayout;
               const Page = route.component;
               return (
                 <Route key={index} element={<RequireAuth />}>

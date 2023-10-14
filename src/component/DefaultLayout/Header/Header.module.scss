@@ -86,3 +86,11 @@
 .transparent {
   background: transparent;
 }
+
+// =====================>>>>>>REPONSIVE<<<<<<<<<<<++++++++++++++
+// Mobile
+@media (max-width: 740px) {
+  .wrapper {
+    padding-left: 0;
+  }
+}

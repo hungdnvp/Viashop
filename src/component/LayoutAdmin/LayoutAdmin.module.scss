@@ -1,0 +1,24 @@
+.wrapper-layout {
+  .demo-logo-vertical {
+    background: url("../../asset/images/logo2.png") no-repeat;
+    background-color: #ffffff;
+    background-position: center; /* Đặt hình ảnh nền ở giữa thẻ div */
+    height: 64px;
+  }
+  .menu-slide {
+  }
+
+  .layout-content {
+    .header-layout-content {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      //   background: colorBgContainer;
+      color: var(--primary-color);
+      font-size: 1.6rem;
+      font-weight: 600;
+      text-shadow: 1px 1px #f3dfdf;
+      border: 1px solid var(--primary-color);
+    }
+  }
+}

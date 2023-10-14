@@ -166,3 +166,29 @@
     }
   }
 }
+
+// =====================>>>>>>REPONSIVE<<<<<<<<<<<++++++++++++++
+// Mobile
+@media (max-width: 740px) {
+  .form-box {
+    margin-top: 45px;
+    width: 100% !important;
+    max-width: 340px;
+    height: 410px;
+
+    .inputbox {
+      width: 248px !important;
+      margin: 18px 0 !important;
+    }
+    .register {
+      margin: 18px 0 10px !important;
+    }
+  }
+}
+
+/* Tablet */
+@media (max-width: 1023px) and (min-width: 740px) {
+  .form-box {
+    width: 60% !important;
+  }
+}

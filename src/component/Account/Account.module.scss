@@ -111,7 +111,7 @@
   }
 }
 .short {
-  max-width: 25%;
+  // max-width: 25%;
   display: flex;
   border-radius: 0.25rem;
 }
@@ -119,4 +119,11 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+// =====================>>>>>>REPONSIVE<<<<<<<<<<<++++++++++++++
+// Mobile
+@media (max-width: 740px) {
+  .block-container {
+    flex: auto;
+  }
 }

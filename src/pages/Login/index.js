@@ -112,14 +112,6 @@ const Login = () => {
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
               />
-              {/* <input
-                type="password"
-                name="password"
-                required
-                autoComplete="on"
-                onChange={(event) => setPassword(event.target.value)}
-                value={password}
-              /> */}
               <label>Mật khẩu</label>
             </div>
             <div className={cx("forget")}>
