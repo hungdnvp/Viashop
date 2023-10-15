@@ -1,8 +1,9 @@
 .wrapper-layout {
   .demo-logo-vertical {
     background: url("../../asset/images/logo2.png") no-repeat;
-    background-color: #ffffff;
-    background-position: center; /* Đặt hình ảnh nền ở giữa thẻ div */
+    background-color: #fff;
+    background-position: center;
+    background-size: 100px 80px;
     height: 64px;
   }
   .menu-slide {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   DesktopOutlined,
   FileOutlined,
@@ -6,7 +7,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu } from "antd";
 import classNames from "classnames/bind";
 import styles from "./LayoutAdmin.module.scss";
 
@@ -37,13 +38,20 @@ const items = [
 
 const LayoutAdmin = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
+  const navigate = useNavigate();
   const nextLayoutContent = (key) => {
     console.log(key);
+    switch (key) {
+      case "1":
+        navigate("/admin");
+        break;
+      case "2":
+        navigate("/admin/manage-user");
+        break;
+
+      default:
+      // code block
+    }
   };
   return (
     <Layout

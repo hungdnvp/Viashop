@@ -10,6 +10,7 @@ import Banking from "../pages/Banking";
 import HistoryTransaction from "../pages/HistoryTransaction";
 import Unauthorized from "../pages/Unauthorized.js";
 import HomeAdmin from "../pages/AdminPage/home";
+import ManageUserPage from "../pages/AdminPage/ManageUserPage";
 function ForbidenLayout({ children }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>{children}</div>
@@ -31,6 +32,7 @@ const privateRoutes = [
   { path: "banking", component: Banking },
   { path: "history-transaction", component: HistoryTransaction },
   { path: "admin", component: HomeAdmin, layout: LayoutAdmin },
+  { path: "admin/manage-user", component: ManageUserPage, layout: LayoutAdmin },
 ];
 
 export { publicRoutes, privateRoutes };

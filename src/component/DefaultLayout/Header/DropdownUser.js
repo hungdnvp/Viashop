@@ -37,7 +37,7 @@ function DropdownUser() {
   return (
     <div className={cx("wrapper-drop-down")}>
       <Dropdown>
-        <Dropdown.Toggle variant="success">
+        <Dropdown.Toggle variant="primary">
           <FontAwesomeIcon icon={faBars} />
         </Dropdown.Toggle>
         <Dropdown.Menu className={cx("menu")} show={false}>

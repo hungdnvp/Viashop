@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import { Button } from "antd";
 import DropdownUser from "./DropdownUser";
 import useAuth from "../../../hooks/useAuth";
+import logo2 from "../../../asset/images/logonew.jpg";
 import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
@@ -24,7 +25,9 @@ function Header({ transparent = false }) {
     <div className={classes}>
       <div className={cx("header-content")}>
         <div className={cx("left-content")}>
-          <Link to="/">VIA-SHOP</Link>
+          <Link to="/">
+            <img className={cx("lc-img-header")} src={logo2}></img>
+          </Link>
         </div>
         <div className={cx("center-content")}></div>
         {accessToken ? (
