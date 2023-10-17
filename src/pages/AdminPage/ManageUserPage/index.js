@@ -2,35 +2,10 @@ import { SearchOutlined } from "@ant-design/icons";
 import React, { useRef, useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
 import { Button, Input, Space, Table } from "antd";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import { json } from "react-router-dom/dist/umd/react-router-dom.development";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// const data = [
-//   {
-//     key: "1",
-//     name: "John Brown",
-//     age: 32,
-//     address: "New York No. 1 Lake Park",
-//   },
-//   {
-//     key: "2",
-//     name: "Joe Black",
-//     age: 42,
-//     address: "London No. 1 Lake Park",
-//   },
-//   {
-//     key: "3",
-//     name: "Jim Green",
-//     age: 32,
-//     address: "Sydney No. 1 Lake Park",
-//   },
-//   {
-//     key: "4",
-//     name: "Jim Red",
-//     age: 32,
-//     address: "London No. 2 Lake Park",
-//   },
-// ];
 const ManageUserPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -160,46 +135,47 @@ const ManageUserPage = () => {
     {
       title: "Tên tài khoản",
       dataIndex: "username",
-      key: "name",
-      width: "30%",
-      ...getColumnSearchProps("name"),
+      width: "20%",
+      ...getColumnSearchProps("username"),
     },
     {
       title: "Email",
       dataIndex: "email",
-      key: "age",
       width: "20%",
-      ...getColumnSearchProps("age"),
+      ...getColumnSearchProps("email"),
     },
     {
       title: "PhoneNumber",
       dataIndex: "phonenumber",
-      key: "age",
-      width: "20%",
-      ...getColumnSearchProps("age"),
+      width: "15%",
+      ...getColumnSearchProps("phonenumber"),
     },
     {
       title: "Số dư",
       dataIndex: "balance",
-      key: "address",
-      sorter: (a, b) => a.address.length - b.address.length,
+      sorter: (a, b) => parseInt(a.balance) - parseInt(b.balance),
       sortDirections: ["descend", "ascend"],
+      width: "15%",
     },
 
     {
       title: "Ngày đăng kí",
       dataIndex: "createdAt",
-      key: "age",
-      width: "20%",
+      width: "15%",
     },
     {
       title: "Action",
       dataIndex: "",
-      key: "x",
       render: () => (
         <>
-          <button>Delete</button>
-          <button>Delete</button>
+          <Button
+            type="primary"
+            danger
+            icon={<FontAwesomeIcon icon={faTrashCan} />}
+            size={"medium"}
+          >
+            Delete
+          </Button>
         </>
       ),
     },
@@ -209,7 +185,7 @@ const ManageUserPage = () => {
     setLoading(true);
     try {
       console.log("accout effect");
-      let response = await axiosPrivate.get("/api/getAllUser");
+      let response = await axiosPrivate.get("/adminApi/getAllUser");
       if (response) {
         let users = response.data;
         console.log(users);
@@ -219,7 +195,7 @@ const ManageUserPage = () => {
           ...tableParams,
           pagination: {
             ...tableParams.pagination,
-            total: 200,
+            total: users.length,
             // 200 is mock data, you should read it from server
             // total: data.totalCount,
           },

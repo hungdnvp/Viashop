@@ -26,7 +26,7 @@ const items = [
   getItem("Quản lí người dùng", "2", <UserOutlined />),
   getItem("Quản lí Via", "sub1", <PieChartOutlined />, [
     getItem("Danh sách Via", "3"),
-    getItem("Thêm Via bán", "4"),
+    getItem("Thêm ViaPublic", "4"),
     getItem("Nhập Via private", "5"),
   ]),
   getItem("Team", "sub2", <TeamOutlined />, [
@@ -48,7 +48,9 @@ const LayoutAdmin = ({ children }) => {
       case "2":
         navigate("/admin/manage-user");
         break;
-
+      case "4":
+        navigate("/admin/manage-viapublic");
+        break;
       default:
       // code block
     }
@@ -91,7 +93,7 @@ const LayoutAdmin = ({ children }) => {
             textAlign: "center",
           }}
         >
-          Ant Design ©2023 Created by Ant UED
+          Design ©2023 Created by QuangHung
         </Footer>
       </Layout>
     </Layout>

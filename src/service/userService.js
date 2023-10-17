@@ -42,7 +42,7 @@ const autoLogin = async () => {
   return await axios
     .get("api/autoLogin", { withCredentials: true })
     .catch((res) => {
-      // console.log(res.statusText);
+      console.log(res);
     });
 };
 // const getAccountInfo = (userId) => {
