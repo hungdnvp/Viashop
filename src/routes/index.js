@@ -11,7 +11,8 @@ import HistoryTransaction from "../pages/HistoryTransaction";
 import Unauthorized from "../pages/Unauthorized.js";
 import HomeAdmin from "../pages/AdminPage/home";
 import ManageUserPage from "../pages/AdminPage/ManageUserPage";
-import ViaPublic from "../pages/AdminPage/ManageVia/ViaPublic";
+import ManageVia from "../pages/AdminPage/ManageVia/ManageVia";
+import ViaPublicShow from "../pages/AdminPage/ManageVia/ViaPublicShow";
 function ForbidenLayout({ children }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>{children}</div>
@@ -34,7 +35,12 @@ const privateRoutes = [
   { path: "history-transaction", component: HistoryTransaction },
   { path: "admin", component: HomeAdmin, layout: LayoutAdmin },
   { path: "admin/manage-user", component: ManageUserPage, layout: LayoutAdmin },
-  { path: "admin/manage-viapublic", component: ViaPublic, layout: LayoutAdmin },
+  { path: "admin/manage-viapublic", component: ManageVia, layout: LayoutAdmin },
+  {
+    path: "admin/manage-viapublic-show",
+    component: ViaPublicShow,
+    layout: LayoutAdmin,
+  },
 ];
 
 export { publicRoutes, privateRoutes };

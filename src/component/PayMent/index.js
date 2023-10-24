@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { Input } from "antd";
 const cx = classNames.bind(styles);
 function PayMent({ p_name, p_amount, p_unitPrice }) {
-  // const [totalPrice, setTotalPrice] = useState(p_unitPrice * p_amount);
   const { auth } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();

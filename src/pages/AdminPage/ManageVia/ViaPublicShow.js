@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Highlighter from "react-highlight-words";
-import { Button, Input, Space, Table } from "antd";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Col, Row } from "antd";
+import { Table, Button } from "antd";
+import styles from "./ManageVia.module.scss";
+import classNames from "classnames/bind";
 
-const ViaPublic = () => {
+const cx = classNames.bind(styles);
+const ViaPublicShow = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
@@ -29,18 +30,6 @@ const ViaPublic = () => {
       name: "Joe Black",
       age: 42,
       address: "London No. 1 Lake Park",
-    },
-    {
-      key: "3",
-      name: "Jim Green",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Jim Red",
-      age: 32,
-      address: "London No. 2 Lake Park",
     },
   ];
   const columns = [
@@ -99,25 +88,7 @@ const ViaPublic = () => {
     fetchData();
   }, [JSON.stringify(tableParams)]);
   return (
-    <>
-      <Row>
-        <Col span={24}>col</Col>
-      </Row>
-      <Row>
-        <Col span={12}>col-12</Col>
-        <Col span={12}>col-12</Col>
-      </Row>
-      <Row>
-        <Col span={8}>col-8</Col>
-        <Col span={8}>col-8</Col>
-        <Col span={8}>col-8</Col>
-      </Row>
-      <Row>
-        <Col span={6}>col-6</Col>
-        <Col span={6}>col-6</Col>
-        <Col span={6}>col-6</Col>
-        <Col span={6}>col-6</Col>
-      </Row>
+    <div className={cx("wrapper-content")}>
       <Table
         columns={columns}
         dataSource={data}
@@ -125,7 +96,7 @@ const ViaPublic = () => {
         pagination={tableParams.pagination}
         //   onChange={handleTableChange}
       />
-    </>
+    </div>
   );
 };
-export default ViaPublic;
+export default ViaPublicShow;

@@ -58,6 +58,7 @@ const ManageUserPage = () => {
         />
         <Space>
           <Button
+            key={"btn1"}
             type="primary"
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
@@ -69,6 +70,7 @@ const ManageUserPage = () => {
             Search
           </Button>
           <Button
+            key={"btn2"}
             onClick={() => clearFilters && handleReset(clearFilters)}
             size="small"
             style={{
@@ -78,6 +80,7 @@ const ManageUserPage = () => {
             Reset
           </Button>
           <Button
+            key={"btn3"}
             type="link"
             size="small"
             onClick={() => {
@@ -91,6 +94,7 @@ const ManageUserPage = () => {
             Filter
           </Button>
           <Button
+            key={"btn4"}
             type="link"
             size="small"
             onClick={() => {
@@ -133,24 +137,28 @@ const ManageUserPage = () => {
   });
   const columns = [
     {
+      key: "username",
       title: "Tên tài khoản",
       dataIndex: "username",
       width: "20%",
       ...getColumnSearchProps("username"),
     },
     {
+      key: "email",
       title: "Email",
       dataIndex: "email",
       width: "20%",
       ...getColumnSearchProps("email"),
     },
     {
+      key: "phonenumber",
       title: "PhoneNumber",
       dataIndex: "phonenumber",
       width: "15%",
       ...getColumnSearchProps("phonenumber"),
     },
     {
+      key: "balance",
       title: "Số dư",
       dataIndex: "balance",
       sorter: (a, b) => parseInt(a.balance) - parseInt(b.balance),
@@ -159,11 +167,13 @@ const ManageUserPage = () => {
     },
 
     {
+      key: "createdAt",
       title: "Ngày đăng kí",
       dataIndex: "createdAt",
       width: "15%",
     },
     {
+      key: "action",
       title: "Action",
       dataIndex: "",
       render: () => (
@@ -186,7 +196,7 @@ const ManageUserPage = () => {
     try {
       console.log("accout effect");
       let response = await axiosPrivate.get("/adminApi/getAllUser");
-      if (response) {
+      if (response?.status === 200) {
         let users = response.data;
         console.log(users);
         setData(users);

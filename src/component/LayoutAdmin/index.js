@@ -48,6 +48,9 @@ const LayoutAdmin = ({ children }) => {
       case "2":
         navigate("/admin/manage-user");
         break;
+      case "3":
+        navigate("/admin/manage-viapublic-show");
+        break;
       case "4":
         navigate("/admin/manage-viapublic");
         break;

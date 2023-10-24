@@ -72,7 +72,7 @@ const Register = () => {
         };
         let data = await handleRegisterApi(inputData);
         if (data && data.errCode === 0) {
-          messageApi.info("Register successed");
+          messageApi.info("Đăng kí thành công");
           setTimeout(() => {
             navigate("/login");
           }, 1000);
