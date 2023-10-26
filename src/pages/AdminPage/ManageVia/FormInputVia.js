@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { Button, Input, InputNumber, Select } from "antd";
 import classNames from "classnames/bind";
 import styles from "./ManageVia.module.scss";
@@ -8,19 +9,44 @@ const cx = classNames.bind(styles);
 const { TextArea } = Input;
 const FormInputVia = ({ dataGroupViaProp }) => {
   const [messageApi, contextHolder] = message.useMessage();
+  const axiosPrivate = useAxiosPrivate();
   const [nameVia, setNameVia] = useState();
   const [price, setPrice] = useState(1000);
-  const [discountPrice, setDiscountPrice] = useState(1000);
+  const [discountPrice, setDiscountPrice] = useState();
   const [groupViaId, setGroupViaId] = useState();
   const [discountCondition, setDiscountCondition] = useState();
   const [descriptions, setDescriptions] = useState("");
 
-  const handleAddVia = () => {
+  const handleAddVia = async () => {
     console.log("nameVia", nameVia);
     console.log("price", price);
     console.log("discontPrice", discountPrice);
+    console.log("discountCondiontion", discountCondition);
     console.log("groupvivaId", groupViaId);
     console.log("description", descriptions);
+    if (!nameVia || !price || !groupViaId || !descriptions) {
+      messageApi.info("Vui lòng điền đầy đủ thông tin!");
+    } else {
+      const data = {
+        nameVia: nameVia,
+        groupViaId: groupViaId,
+        price: price,
+        discountPrice: discountPrice || null,
+        discountCondition: discountCondition || null,
+        descriptions: descriptions,
+      };
+      try {
+        let response = await axiosPrivate.post("/adminApi/addVia", data);
+        if (response?.status === 200) {
+          messageApi.info("Thêm via thành công!");
+        }
+      } catch (e) {
+        messageApi.error("Có lỗi xảy ra, vui lòng kiểm tra lại thông tin!");
+        console.log("add via err");
+      }
+    }
+    setNameVia("");
+    setDescriptions("");
   };
   return (
     <div className={cx("wrapper-half-content")}>
@@ -29,7 +55,10 @@ const FormInputVia = ({ dataGroupViaProp }) => {
         <h4>Thêm Via</h4>
         <div className={cx("input-group-via")}>
           <div className={cx("input-group-item")}>
-            <span>Tên Via:</span>
+            <span>
+              <span>Tên Via:</span>
+              <span style={{ color: "red" }}>*</span>
+            </span>
             <Input
               size="large"
               style={{
@@ -42,7 +71,10 @@ const FormInputVia = ({ dataGroupViaProp }) => {
             />
           </div>
           <div className={cx("input-group-item")}>
-            <span>Nhóm via:</span>
+            <span>
+              <span>Nhóm via:</span>
+              <span style={{ color: "red" }}>*</span>
+            </span>
             <Select
               defaultValue="chọn nhóm via"
               style={{
@@ -56,7 +88,10 @@ const FormInputVia = ({ dataGroupViaProp }) => {
             />
           </div>
           <div className={cx("input-group-item")}>
-            <span>Giá Via:</span>
+            <span>
+              <span>Giá via:</span>
+              <span style={{ color: "red" }}>*</span>
+            </span>
             <InputNumber
               size="large"
               min={1000}
@@ -107,7 +142,10 @@ const FormInputVia = ({ dataGroupViaProp }) => {
             />
           </div>
           <div className={cx("input-group-item")}>
-            <span>Mô tả:</span>
+            <span>
+              <span>Mô tả:</span>
+              <span style={{ color: "red" }}>*</span>
+            </span>
             <TextArea
               rows={4}
               style={{ maxWidth: "60%" }}

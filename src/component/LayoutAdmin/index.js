@@ -26,8 +26,8 @@ const items = [
   getItem("Quản lí người dùng", "2", <UserOutlined />),
   getItem("Quản lí Via", "sub1", <PieChartOutlined />, [
     getItem("Danh sách Via", "3"),
-    getItem("Thêm ViaPublic", "4"),
-    getItem("Nhập Via private", "5"),
+    getItem("Thêm Via", "4"),
+    getItem("Nhập Account", "5"),
   ]),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Team 1", "6"),

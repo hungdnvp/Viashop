@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { Button, Table, Input } from "antd";
+import { Button, Table, Input, Space } from "antd";
 import classNames from "classnames/bind";
 import styles from "./ManageVia.module.scss";
 import { message } from "antd";
@@ -22,43 +22,48 @@ const FormManageGroup = ({ setdataParent }) => {
       dataIndex: "id",
       width: "8%",
       align: "center",
+      key: "id",
     },
     {
       title: "Nhóm Via",
       dataIndex: "groupViaName",
       align: "center",
+      key: "groupViaName",
     },
     {
       title: "Ngày tạo",
       dataIndex: "createdAt",
       align: "center",
+      key: "createdAt",
     },
     {
       title: "Action",
       dataIndex: "",
       align: "center",
       width: "30%",
+      key: "action",
 
       render: () => (
-        <>
+        <Space>
           <Button
+            // key={"edit"}
             type="primary"
             danger
             icon={<FontAwesomeIcon icon={faPen} />}
             size={"medium"}
             style={{ marginRight: "8px" }}
           >
-            chỉnh sửa
+            Sửa
           </Button>
           <Button
-            type="primary"
+            // key={"delete"}
             danger
             icon={<FontAwesomeIcon icon={faTrashCan} />}
             size={"medium"}
           >
             xóa
           </Button>
-        </>
+        </Space>
       ),
     },
   ];
@@ -93,8 +98,8 @@ const FormManageGroup = ({ setdataParent }) => {
         await fetchData();
       }
     } catch (e) {
-      console.log("get all group via err");
-      console.log(e);
+      messageApi.error("Xảy ra lỗi, xin hãy thử lại!");
+      console.log("add group via error");
     }
     setGroupViaName("");
   };

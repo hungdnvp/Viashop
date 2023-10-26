@@ -58,7 +58,6 @@ const ManageUserPage = () => {
         />
         <Space>
           <Button
-            key={"btn1"}
             type="primary"
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
@@ -70,7 +69,6 @@ const ManageUserPage = () => {
             Search
           </Button>
           <Button
-            key={"btn2"}
             onClick={() => clearFilters && handleReset(clearFilters)}
             size="small"
             style={{
@@ -80,7 +78,6 @@ const ManageUserPage = () => {
             Reset
           </Button>
           <Button
-            key={"btn3"}
             type="link"
             size="small"
             onClick={() => {
@@ -94,7 +91,6 @@ const ManageUserPage = () => {
             Filter
           </Button>
           <Button
-            key={"btn4"}
             type="link"
             size="small"
             onClick={() => {
@@ -177,7 +173,7 @@ const ManageUserPage = () => {
       title: "Action",
       dataIndex: "",
       render: () => (
-        <>
+        <Space>
           <Button
             type="primary"
             danger
@@ -186,7 +182,7 @@ const ManageUserPage = () => {
           >
             Delete
           </Button>
-        </>
+        </Space>
       ),
     },
   ];

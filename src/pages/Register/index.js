@@ -76,14 +76,13 @@ const Register = () => {
           setTimeout(() => {
             navigate("/login");
           }, 1000);
-        }
-        if (data && data.errCode !== 0) {
-          messageApi.info(data.errMessage);
+        } else {
+          messageApi.error(data?.errMessage || "lỗi đăng kí");
         }
       } catch (err) {
         if (err.response) {
           if (err.response.data) {
-            messageApi.info(err.response.data.errMessage);
+            messageApi.error(err.response.data.errMessage);
           }
         }
       }
