@@ -4,6 +4,7 @@ import {
   faBars,
   faCoins,
   faRightFromBracket,
+  faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -14,10 +15,9 @@ import { logoutService } from "../../../service/userService";
 import { message } from "antd";
 
 const cx = classNames.bind(styles);
-function DropdownUser() {
+function DropdownUser({ authAdmin }) {
   const navigate = useNavigate();
   const { setAuth } = useAuth();
-
   const logOut = async () => {
     try {
       let response = await logoutService();
@@ -25,6 +25,7 @@ function DropdownUser() {
         setAuth({
           accessToken: null,
           email: null,
+          authAdmin: false,
         });
         navigate("/login", { replace: true });
       } else {
@@ -34,6 +35,7 @@ function DropdownUser() {
       message.error("Đăng xuất không thành công!");
     }
   };
+  console.log("auth admin: ", authAdmin);
   return (
     <div className={cx("wrapper-drop-down")}>
       <Dropdown>
@@ -59,6 +61,17 @@ function DropdownUser() {
             <FontAwesomeIcon icon={faCoins} />
             <span className={cx("menu-item")}>Lịch sử mua hàng</span>
           </Dropdown.Item>
+          {authAdmin && (
+            <Dropdown.Item
+              onClick={() => navigate("/admin")}
+              className={cx("item")}
+            >
+              <FontAwesomeIcon icon={faScrewdriverWrench} />
+              <span className={cx("menu-item")} style={{ color: "red" }}>
+                Admin Pages
+              </span>
+            </Dropdown.Item>
+          )}
           <Dropdown.Divider />
           <Dropdown.Item onClick={logOut} className={cx("item")}>
             <FontAwesomeIcon icon={faRightFromBracket} />

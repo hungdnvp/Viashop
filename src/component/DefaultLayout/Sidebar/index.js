@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import React, { useState, useEffect } from "react";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { Sidebar, SubMenu, Menu, MenuItem } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -25,13 +26,30 @@ library.add(
 const cx = classNames.bind(styles);
 function Sidebars() {
   const [toggled, setToggled] = useState(false);
+  const [menuGroupVia, setMenuGroupVia] = useState([]);
+  const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const [path, setPath] = useState(location.pathname.substring(1));
   const handleToggleSidebar = (value) => {
     setToggled(value);
   };
+
   useEffect(() => {
     setPath(location.pathname.substring(1));
+
+    const fetchAllGroupVia = async () => {
+      try {
+        let response = await axiosPrivate.get("/api/getAllGroupVia");
+        if (response?.status === 200) {
+          const groupVias = response.data;
+          setMenuGroupVia(groupVias);
+        }
+      } catch (e) {
+        console.log("slidebar fetch group via err");
+        console.log(e);
+      }
+    };
+    fetchAllGroupVia();
   }, [location.pathname]);
   return (
     <div className={cx("wrapper")}>
@@ -90,14 +108,14 @@ function Sidebars() {
               </MenuItem>
               <MenuItem
                 className={styles["custom-menu-item"]}
-                component={<Link to="" />}
+                component={<Link to="#" />}
                 icon={<FontAwesomeIcon icon={faClockRotateLeft} />}
               >
                 Lịch sử mua hàng
               </MenuItem>
               <MenuItem
                 className={styles["custom-menu-item"]}
-                component={<Link to="" />}
+                component={<Link to="#" />}
                 icon={<FontAwesomeIcon icon={faClipboardCheck} />}
               >
                 Gửi ticket hỗ trợ
@@ -108,84 +126,25 @@ function Sidebars() {
               label={"MUA HÀNG"}
               style={{ fontWeight: "600" }}
             >
-              <MenuItem
-                component={<Link to="" />}
-                className={styles["custom-menu-item"]}
-                icon={
-                  <img
-                    src={require("../../../asset/images/fbPage1.jpeg")}
-                    alt=""
-                    className={cx("flag-national")}
-                  />
-                }
-              >
-                Facebook Pages
-              </MenuItem>
-              <MenuItem
-                component={<Link to="" />}
-                className={styles["custom-menu-item"]}
-                icon={
-                  <img
-                    src={require("../../../asset/images/fbBusiness.jpeg")}
-                    alt=""
-                    className={cx("flag-national")}
-                  />
-                }
-              >
-                BM Facebook
-              </MenuItem>
-              <MenuItem
-                component={<Link to="" />}
-                className={styles["custom-menu-item"]}
-                icon={
-                  <img
-                    src={require("../../../asset/images/flag-vietnam.png")}
-                    alt=""
-                    className={cx("flag-national")}
-                  />
-                }
-              >
-                Via Việt Nam
-              </MenuItem>
-              <MenuItem
-                component={<Link to="" />}
-                className={styles["custom-menu-item"]}
-                icon={
-                  <img
-                    src={require("../../../asset/images/flag-philippines.png")}
-                    alt=""
-                    className={cx("flag-national")}
-                  />
-                }
-              >
-                Via Host Philippines
-              </MenuItem>
-              <MenuItem
-                component={<Link to="" />}
-                className={styles["custom-menu-item"]}
-                icon={
-                  <img
-                    src={require("../../../asset/images/flag-indonesia.png")}
-                    alt=""
-                    className={cx("flag-national")}
-                  />
-                }
-              >
-                Via Indonesia
-              </MenuItem>
-              <MenuItem
-                component={<Link to="" />}
-                className={styles["custom-menu-item"]}
-                icon={
-                  <img
-                    src={require("../../../asset/images/flag-thailand.png")}
-                    alt=""
-                    className={cx("flag-national")}
-                  />
-                }
-              >
-                Via Thái Lan
-              </MenuItem>
+              {menuGroupVia &&
+                menuGroupVia.map((groupVia, index) => {
+                  return (
+                    <MenuItem
+                      key={index}
+                      component={<Link to="#" />}
+                      className={styles["custom-menu-item"]}
+                      icon={
+                        <img
+                          src={groupVia.image}
+                          alt=""
+                          className={cx("flag-national")}
+                        />
+                      }
+                    >
+                      {groupVia.groupViaName}
+                    </MenuItem>
+                  );
+                })}
             </SubMenu>
             <SubMenu
               defaultOpen
@@ -194,7 +153,7 @@ function Sidebars() {
             >
               <MenuItem
                 className={styles["custom-menu-item"]}
-                component={<Link to="" />}
+                component={<Link to="#" />}
                 icon={<FontAwesomeIcon icon={faFacebook} />}
               >
                 Thủ thuật Facebook

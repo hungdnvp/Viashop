@@ -28,6 +28,7 @@ const Login = () => {
         setAuth({
           email: response.email,
           accessToken: response.accessToken,
+          authAdmin: response?.authAdmin || false,
         });
         navigate(state?.path || "/home", { replace: true });
       }
@@ -55,11 +56,15 @@ const Login = () => {
     try {
       const response = await handleLoginApi(username, password);
       const accessToken = response?.accessToken;
+      const authAdmin = response?.authAdmin === true ? true : false;
       if (response?.accessToken) {
         console.log("set accessToken: ", { accessToken });
+        console.log("set authAdmin: ", response?.authAdmin);
+
         setAuth({
           email: response.email,
           accessToken: accessToken,
+          setAuthAdmin: authAdmin,
         });
         navigate(state?.path || "/home", { replace: true });
       } else {

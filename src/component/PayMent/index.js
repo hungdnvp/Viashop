@@ -9,7 +9,7 @@ import { faCircleCheck, faTicket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { Input } from "antd";
 const cx = classNames.bind(styles);
-function PayMent({ p_name, p_amount, p_unitPrice }) {
+function PayMent({ p_name, p_amount, p_unitPrice, resultPayment }) {
   const { auth } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -47,7 +47,8 @@ function PayMent({ p_name, p_amount, p_unitPrice }) {
   }, []);
 
   const handleSubmitPayMent = (money) => {
-    alert("you lose money:" + money);
+    // let dataResult = {}
+    resultPayment({ isOpen: true });
   };
   return (
     <div className={cx("wrapper")}>
@@ -80,7 +81,9 @@ function PayMent({ p_name, p_amount, p_unitPrice }) {
         >
           Tổng thanh toán
         </span>
-        <h1 className={cx("total-cost")}>{p_unitPrice * p_amount} đ</h1>
+        <h1 className={cx("total-cost")}>
+          {p_unitPrice * p_amount || "undefined"} đ
+        </h1>
         <p
           style={
             p_unitPrice * p_amount > balance

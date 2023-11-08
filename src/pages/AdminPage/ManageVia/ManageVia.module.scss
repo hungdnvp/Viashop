@@ -14,16 +14,42 @@
     .add-group {
       display: flex;
       flex-direction: column;
+      border: 2px solid transparent;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 12px;
       h4 {
         font-weight: 600;
         color: var(--text-color);
         font-size: 1.2rem;
       }
+      .btn-change {
+        display: flex;
+        gap: 12px;
+        .btn-edit {
+          display: none;
+        }
+        .btn-edit-active {
+          display: block;
+        }
+      }
       .input-group {
+        display: flex;
         padding-bottom: 12px;
         .btn-add {
           margin-left: 12px;
         }
+        img {
+          border-radius: 2px;
+          width: 40px;
+          height: 40px;
+          margin-left: 12px;
+        }
+      }
+    }
+    .add-border {
+      // background-color: #76c96bb0;
+      .btn-add {
+        background-color: red;
       }
     }
     .add-group-via {
@@ -35,20 +61,7 @@
       border: 1px solid #f0f0f0;
       align-items: center;
       background-color: #fafafa;
-      .input-group-via {
-        width: 100%;
-        padding: 0 120px;
 
-        .input-group-item {
-          display: flex;
-          justify-content: space-between;
-          padding-bottom: 12px;
-        }
-        .btn-add-via {
-          display: flex;
-          justify-content: flex-end;
-        }
-      }
       h4 {
         line-height: 55px;
       }
@@ -61,7 +74,20 @@
     }
   }
 }
+.input-group-via {
+  width: 100%;
+  padding: 0 120px;
 
+  .input-group-item {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+  }
+  .btn-add-via {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
 .wrapper-display {
   padding-top: 32px;
 }

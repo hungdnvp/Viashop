@@ -6,9 +6,12 @@
   align-items: center;
   padding: 0 14px;
   .block-border {
+    display: flex;
+    flex-direction: column;
     border: 1px solid #e4e9f3;
     width: 100%;
     border-radius: 0.25rem;
+    height: 100%;
     .block-header {
       display: flex;
       justify-content: center;
@@ -27,6 +30,7 @@
     margin-bottom: 1.25rem;
 
     .block-content {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;

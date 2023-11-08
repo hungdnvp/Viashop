@@ -13,6 +13,7 @@ const useRefreshToken = () => {
         return {
           accessToken: response.accessToken,
           email: response.email,
+          authAdmin: response?.authAdmin || false,
         };
       }
     });

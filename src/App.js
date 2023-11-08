@@ -3,6 +3,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./routes";
 import DefaultLayout from "./component/DefaultLayout";
 import RequireAuth from "./component/RequireAuth";
+import { RequireAuthAdmin } from "./component/RequireAuth";
 import PersistLogin from "./store/PersistLogin";
 
 function App() {
@@ -31,16 +32,30 @@ function App() {
             {privateRoutes.map((route, index) => {
               const Layout = route.layout ? route.layout : DefaultLayout;
               const Page = route.component;
+
               return (
                 <Route key={index} element={<RequireAuth />}>
-                  <Route
-                    path={route.path}
-                    element={
-                      <Layout>
-                        <Page />
-                      </Layout>
-                    }
-                  />
+                  {route.path.includes("admin") ? (
+                    <Route key={index} element={<RequireAuthAdmin />}>
+                      <Route
+                        path={route.path}
+                        element={
+                          <Layout>
+                            <Page />
+                          </Layout>
+                        }
+                      />
+                    </Route>
+                  ) : (
+                    <Route
+                      path={route.path}
+                      element={
+                        <Layout>
+                          <Page />
+                        </Layout>
+                      }
+                    />
+                  )}
                 </Route>
               );
             })}

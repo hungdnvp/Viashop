@@ -13,6 +13,7 @@ import HomeAdmin from "../pages/AdminPage/home";
 import ManageUserPage from "../pages/AdminPage/ManageUserPage";
 import ManageVia from "../pages/AdminPage/ManageVia/ManageVia";
 import ListVia from "../pages/AdminPage/ManageVia/ListVia";
+import ListProduct from "../pages/AdminPage/ManageProduct/ListProduct";
 function ForbidenLayout({ children }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>{children}</div>
@@ -33,12 +34,19 @@ const privateRoutes = [
   { path: "account", component: AccountPage },
   { path: "banking", component: Banking },
   { path: "history-transaction", component: HistoryTransaction },
+
+  /////////******ADMIN */
   { path: "admin", component: HomeAdmin, layout: LayoutAdmin },
   { path: "admin/manage-user", component: ManageUserPage, layout: LayoutAdmin },
   { path: "admin/manage-viapublic", component: ManageVia, layout: LayoutAdmin },
   {
     path: "admin/manage-viapublic-show",
     component: ListVia,
+    layout: LayoutAdmin,
+  },
+  {
+    path: "admin/manage-product",
+    component: ListProduct,
     layout: LayoutAdmin,
   },
 ];

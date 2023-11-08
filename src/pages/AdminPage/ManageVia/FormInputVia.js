@@ -18,12 +18,6 @@ const FormInputVia = ({ dataGroupViaProp }) => {
   const [descriptions, setDescriptions] = useState("");
 
   const handleAddVia = async () => {
-    console.log("nameVia", nameVia);
-    console.log("price", price);
-    console.log("discontPrice", discountPrice);
-    console.log("discountCondiontion", discountCondition);
-    console.log("groupvivaId", groupViaId);
-    console.log("description", descriptions);
     if (!nameVia || !price || !groupViaId || !descriptions) {
       messageApi.info("Vui lòng điền đầy đủ thông tin!");
     } else {

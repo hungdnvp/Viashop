@@ -22,12 +22,12 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem("Thống kê", "1", <DesktopOutlined />),
-  getItem("Quản lí người dùng", "2", <UserOutlined />),
-  getItem("Quản lí Via", "sub1", <PieChartOutlined />, [
-    getItem("Danh sách Via", "3"),
-    getItem("Thêm Via", "4"),
-    getItem("Nhập Account", "5"),
+  getItem("Dashboard", "1", <DesktopOutlined />),
+  getItem("Manage Users", "2", <UserOutlined />),
+  getItem("Resoucre Manage", "sub1", <PieChartOutlined />, [
+    getItem("List Via-Import", "3"),
+    getItem("Group/Via", "4"),
+    getItem("Products", "5"),
   ]),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Team 1", "6"),
@@ -53,6 +53,9 @@ const LayoutAdmin = ({ children }) => {
         break;
       case "4":
         navigate("/admin/manage-viapublic");
+        break;
+      case "5":
+        navigate("/admin/manage-product");
         break;
       default:
       // code block

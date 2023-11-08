@@ -11,9 +11,12 @@ const cx = classNames.bind(styles);
 function Header({ transparent = false }) {
   const { auth } = useAuth();
   const accessToken = auth?.accessToken;
+  const authAdmin = auth?.authAdmin;
   const classes = cx("wrapper", { transparent });
   const navigate = useNavigate();
   const location = useLocation();
+  console.log("header access", accessToken);
+  console.log("header admin", authAdmin);
 
   useEffect(() => {
     const path = location.pathname;
@@ -32,7 +35,7 @@ function Header({ transparent = false }) {
         <div className={cx("center-content")}></div>
         {accessToken ? (
           <div className={cx("current-user")}>
-            <DropdownUser />
+            <DropdownUser authAdmin={authAdmin} />
           </div>
         ) : (
           <div className={cx("right-content")}>

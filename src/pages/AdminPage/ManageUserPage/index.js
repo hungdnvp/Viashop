@@ -2,7 +2,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import React, { useRef, useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
 import { Button, Input, Space, Table } from "antd";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -13,12 +13,6 @@ const ManageUserPage = () => {
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
-  const [tableParams, setTableParams] = useState({
-    pagination: {
-      current: 1,
-      pageSize: 10,
-    },
-  });
   const searchInput = useRef(null);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -133,28 +127,24 @@ const ManageUserPage = () => {
   });
   const columns = [
     {
-      key: "username",
       title: "Tên tài khoản",
       dataIndex: "username",
       width: "20%",
       ...getColumnSearchProps("username"),
     },
     {
-      key: "email",
       title: "Email",
       dataIndex: "email",
       width: "20%",
       ...getColumnSearchProps("email"),
     },
     {
-      key: "phonenumber",
       title: "PhoneNumber",
       dataIndex: "phonenumber",
       width: "15%",
       ...getColumnSearchProps("phonenumber"),
     },
     {
-      key: "balance",
       title: "Số dư",
       dataIndex: "balance",
       sorter: (a, b) => parseInt(a.balance) - parseInt(b.balance),
@@ -163,13 +153,11 @@ const ManageUserPage = () => {
     },
 
     {
-      key: "createdAt",
       title: "Ngày đăng kí",
       dataIndex: "createdAt",
       width: "15%",
     },
     {
-      key: "action",
       title: "Action",
       dataIndex: "",
       render: () => (
@@ -181,6 +169,13 @@ const ManageUserPage = () => {
             size={"medium"}
           >
             Delete
+          </Button>
+          <Button
+            type="primary"
+            icon={<FontAwesomeIcon icon={faEye} />}
+            size={"medium"}
+          >
+            View
           </Button>
         </Space>
       ),
@@ -197,15 +192,6 @@ const ManageUserPage = () => {
         console.log(users);
         setData(users);
         setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: users.length,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
       }
     } catch (err) {
       console.log("throw werrror");
@@ -215,26 +201,17 @@ const ManageUserPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [JSON.stringify(tableParams)]);
-  const handleTableChange = (pagination, filters, sorter) => {
-    setTableParams({
-      pagination,
-      filters,
-      ...sorter,
-    });
-
-    // `dataSource` is useless since `pageSize` changed
-    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-      setData([]);
-    }
-  };
+  }, []);
   return (
     <Table
+      scroll={{
+        y: "max-content",
+        x: "max-content",
+      }}
+      pagination={false}
       columns={columns}
       dataSource={data}
       loading={loading}
-      pagination={tableParams.pagination}
-      onChange={handleTableChange}
     />
   );
 };

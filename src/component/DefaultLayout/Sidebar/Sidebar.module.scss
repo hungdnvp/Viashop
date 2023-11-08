@@ -77,6 +77,12 @@
   }
   .custom-menu-item {
     font-size: 0.9rem;
+    span {
+      white-space: pre-wrap;
+    }
+    a:hover {
+      font-size: 0.9rem;
+    }
   }
 
   .active {
