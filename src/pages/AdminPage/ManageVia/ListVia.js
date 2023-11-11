@@ -252,118 +252,116 @@ const ListVia = () => {
   };
   return (
     <Spin spinning={spin}>
-      {
-        <div className={cx("wrapper-display")}>
-          {contextHolder}
-          <Table
-            scroll={{
-              y: "max-content",
-              x: "max-content",
-            }}
-            pagination={false}
-            columns={columns}
-            dataSource={data}
-            loading={loading}
-            tableLayout={"auto"}
-          />
-          <Modal
-            title="Chỉnh sửa thông tin Via"
-            centered
-            open={openModal}
-            onOk={() => handleEditVia()}
-            onCancel={() => setOpenModal(false)}
-            width={1000}
-          >
-            <div className={cx("input-group-via")}>
-              <div className={cx("input-group-item")}>
-                <span>Tên Via:</span>
-                <Input
-                  size="large"
-                  style={{
-                    backgroundColor: "#e9ecef",
-                    borderRadius: "0.25rem",
-                    width: "60%",
-                  }}
-                  value={nameVia}
-                  onChange={(e) => setNameVia(e.target.value)}
-                />
-              </div>
-              <div className={cx("input-group-item")}>
-                <span>Giá via:</span>
-
-                <InputNumber
-                  size="large"
-                  min={1000}
-                  step={1000}
-                  formatter={(value) =>
-                    `VNĐ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  parser={(value) => value.replace(/\VNĐ\s?|(,*)/g, "")}
-                  style={{
-                    backgroundColor: "#e9ecef",
-                    borderRadius: "0.25rem",
-                    width: "60%",
-                  }}
-                  value={price}
-                  onChange={(value) => setPrice(value)}
-                />
-              </div>
-              <div className={cx("input-group-item")}>
-                <span>Giá sỉ:</span>
-                <InputNumber
-                  size="large"
-                  min={1000}
-                  step={1000}
-                  formatter={(value) =>
-                    `VNĐ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  parser={(value) => value.replace(/\VNĐ\s?|(,*)/g, "")}
-                  style={{
-                    backgroundColor: "#e9ecef",
-                    borderRadius: "0.25rem",
-                    width: "60%",
-                  }}
-                  value={discountPrice}
-                  onChange={(value) => setDiscountPrice(value)}
-                />
-              </div>
-              <div className={cx("input-group-item")}>
-                <span>Số lượng mua đạt giá sỉ:</span>
-                <InputNumber
-                  size="large"
-                  style={{
-                    backgroundColor: "#e9ecef",
-                    borderRadius: "0.25rem",
-                    width: "60%",
-                  }}
-                  value={discountCondition}
-                  onChange={(value) => setDiscountCondition(value)}
-                />
-              </div>
-              <div className={cx("input-group-item")}>
-                <span>Mô tả:</span>
-                <TextArea
-                  rows={4}
-                  style={{ maxWidth: "60%" }}
-                  value={descriptions}
-                  onChange={(e) => setDescriptions(e.target.value)}
-                />
-              </div>
+      <div className={cx("wrapper-display")}>
+        {contextHolder}
+        <Table
+          scroll={{
+            y: "max-content",
+            x: "max-content",
+          }}
+          pagination={false}
+          columns={columns}
+          dataSource={data}
+          loading={loading}
+          tableLayout={"auto"}
+        />
+        <Modal
+          title="Chỉnh sửa thông tin Via"
+          centered
+          open={openModal}
+          onOk={() => handleEditVia()}
+          onCancel={() => setOpenModal(false)}
+          width={1000}
+        >
+          <div className={cx("input-group-via")}>
+            <div className={cx("input-group-item")}>
+              <span>Tên Via:</span>
+              <Input
+                size="large"
+                style={{
+                  backgroundColor: "#e9ecef",
+                  borderRadius: "0.25rem",
+                  width: "60%",
+                }}
+                value={nameVia}
+                onChange={(e) => setNameVia(e.target.value)}
+              />
             </div>
-          </Modal>
-          <Modal
-            title="Xác nhận nhập dữ liệu"
-            open={modalImport}
-            onOk={handleOkImport}
-            onCancel={() => {
-              setmodalImport(false);
-              setFileImport(null);
-            }}
-          >
-            <p>Bạn có chắc muốn nhập dữ liệu từ file {fileImport?.name}</p>
-          </Modal>
-        </div>
-      }
+            <div className={cx("input-group-item")}>
+              <span>Giá via:</span>
+
+              <InputNumber
+                size="large"
+                min={1000}
+                step={1000}
+                formatter={(value) =>
+                  `VNĐ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                parser={(value) => value.replace(/\VNĐ\s?|(,*)/g, "")}
+                style={{
+                  backgroundColor: "#e9ecef",
+                  borderRadius: "0.25rem",
+                  width: "60%",
+                }}
+                value={price}
+                onChange={(value) => setPrice(value)}
+              />
+            </div>
+            <div className={cx("input-group-item")}>
+              <span>Giá sỉ:</span>
+              <InputNumber
+                size="large"
+                min={1000}
+                step={1000}
+                formatter={(value) =>
+                  `VNĐ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                parser={(value) => value.replace(/\VNĐ\s?|(,*)/g, "")}
+                style={{
+                  backgroundColor: "#e9ecef",
+                  borderRadius: "0.25rem",
+                  width: "60%",
+                }}
+                value={discountPrice}
+                onChange={(value) => setDiscountPrice(value)}
+              />
+            </div>
+            <div className={cx("input-group-item")}>
+              <span>Số lượng mua đạt giá sỉ:</span>
+              <InputNumber
+                size="large"
+                style={{
+                  backgroundColor: "#e9ecef",
+                  borderRadius: "0.25rem",
+                  width: "60%",
+                }}
+                value={discountCondition}
+                onChange={(value) => setDiscountCondition(value)}
+              />
+            </div>
+            <div className={cx("input-group-item")}>
+              <span>Mô tả:</span>
+              <TextArea
+                rows={4}
+                style={{ maxWidth: "60%" }}
+                value={descriptions}
+                onChange={(e) => setDescriptions(e.target.value)}
+              />
+            </div>
+          </div>
+        </Modal>
+        <Modal
+          title="Xác nhận nhập dữ liệu"
+          open={modalImport}
+          onOk={handleOkImport}
+          onCancel={() => {
+            setmodalImport(false);
+            setFileImport(null);
+          }}
+        >
+          <p>Bạn có chắc muốn nhập dữ liệu từ file {fileImport?.name}</p>
+        </Modal>
+      </div>
     </Spin>
   );
 };

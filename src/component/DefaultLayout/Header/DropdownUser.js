@@ -35,7 +35,6 @@ function DropdownUser({ authAdmin }) {
       message.error("Đăng xuất không thành công!");
     }
   };
-  console.log("auth admin: ", authAdmin);
   return (
     <div className={cx("wrapper-drop-down")}>
       <Dropdown>

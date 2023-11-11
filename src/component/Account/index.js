@@ -2,18 +2,23 @@ import styles from "./Account.module.scss";
 import classNames from "classnames/bind";
 import { faCartPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, InputNumber, Space } from "antd";
 const cx = classNames.bind(styles);
 
 function InfoAcc({ detail = false, changeAmount, data }) {
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState(1);
   const navigate = useNavigate();
   const handleChangeAmount = (value) => {
     changeAmount(value);
     setValue(value);
   };
+  useEffect(() => {
+    setValue(0);
+    if (changeAmount) changeAmount(0);
+  }, [data]);
+
   const classes =
     detail === false
       ? cx("block-container", "short", "col-xl-3", "col-md-6")
@@ -97,7 +102,7 @@ function InfoAcc({ detail = false, changeAmount, data }) {
             ) : (
               <Space>
                 <InputNumber
-                  min={1}
+                  min={0}
                   max={data?.quantity}
                   value={value}
                   onChange={(number) => handleChangeAmount(number)}

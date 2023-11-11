@@ -15,15 +15,13 @@ function Header({ transparent = false }) {
   const classes = cx("wrapper", { transparent });
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("header access", accessToken);
-  console.log("header admin", authAdmin);
 
   useEffect(() => {
     const path = location.pathname;
     if ((path === "/" || path === "/home") && !auth.accessToken) {
       navigate("/login");
     }
-  }, [auth]);
+  }, [auth.accessToken]);
   return (
     <div className={classes}>
       <div className={cx("header-content")}>

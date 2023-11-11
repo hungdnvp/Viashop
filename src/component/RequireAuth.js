@@ -7,7 +7,7 @@ export const RequireAuthAdmin = () => {
   return auth?.authAdmin ? (
     <Outlet />
   ) : (
-    <Navigate to="/unauthorized" state={{ from: location }} />
+    <Navigate to="/forbiden" state={{ from: location }} />
   );
 };
 

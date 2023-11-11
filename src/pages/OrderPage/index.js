@@ -4,17 +4,48 @@ import InfoAcc from "../../component/Account";
 import PayMent from "../../component/PayMent";
 import FooterPage from "../../component/FooterPage";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Modal, Button, Result } from "antd";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Modal, Result } from "antd";
 
 const cx = classNames.bind(styles);
 function OrderPage() {
-  const [amountFromPayMent, setAmountFromPayMent] = useState("1");
-  const [result, setResult] = useState();
+  const [amountFromPayMent, setAmountFromPayMent] = useState(0);
+  const [result, setResult] = useState({
+    isOpenModal: false,
+    statusModal: "error",
+    title: null,
+    subTitle: null,
+  }); // ket qua giao dich
   const location = useLocation();
-  const viaData = location.state?.via || {};
+  const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
+  const [viaData, setViaData] = useState(location.state?.via || {});
+
   const handleAmountFromPayMent = (data) => {
     setAmountFromPayMent(data);
+  };
+  const handleclickModal = async (type) => {
+    if (type === "onOk") {
+      navigate("/history-transaction");
+    } else {
+      try {
+        let response = await axiosPrivate.get(
+          `/api/getViaInfor?idVia=${viaData.id}`
+        );
+        if (response.status === 200) {
+          let via_Old = response.data?.data;
+          console.log("response via after buy", via_Old);
+          setViaData(via_Old);
+        }
+      } catch (e) {
+        console.log("err get VIa after buy");
+      }
+    }
+    setResult((prevState) => ({
+      ...prevState,
+      isOpenModal: false,
+    }));
   };
   return (
     <>
@@ -36,24 +67,23 @@ function OrderPage() {
           </div>
           <div className={cx("right-content", "col-md-4", "col-sm-12")}>
             <PayMent
-              p_name={viaData?.nameVia || "undefined"}
+              via={viaData}
               p_amount={amountFromPayMent}
-              p_unitPrice={viaData?.price}
               resultPayment={setResult}
             />
           </div>
         </div>
       </div>
       <Modal
-        title="Giao dịch thành công"
-        open={result?.isOpen || false}
-        // onOk={() => handleEditVia()}
-        onCancel={() => setResult(false)}
+        title="Kết quả giao dịch"
+        open={result.isOpenModal}
+        onOk={() => handleclickModal("onOk")}
+        onCancel={() => handleclickModal("onCancel")}
       >
         <Result
-          status="error"
-          title="Successfully Purchased Cloud Server ECS!"
-          subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+          status={result.statusModal}
+          title={result.title || "Successfully Purchased "}
+          subTitle={result.subTitle}
         />
       </Modal>
       <FooterPage />

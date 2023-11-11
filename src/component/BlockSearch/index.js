@@ -4,9 +4,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./BlockSearch.module.scss";
 import classNames from "classnames/bind";
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 const cx = classNames.bind(styles);
 
 function BlockSearch() {
+  const handleTest = () => {
+    axios
+      .get(
+        "https://emailvalidation.abstractapi.com/v1/?api_key=395e56f28925475294ae17a7da7ce615&email=hotro.tk10000d@gmail.com"
+      )
+      .then((response) => {
+        let check = response.data.is_smtp_valid.value;
+        console.log(check);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className={cx("block-feature")}>
       <div className={cx("block-header")}>
@@ -24,7 +38,11 @@ function BlockSearch() {
             className={cx("input-search", "form-control")}
             placeholder="Nhập loại muốn tìm kiếm"
           />
-          <Button className={cx("btn-search")} type="primary">
+          <Button
+            className={cx("btn-search")}
+            type="primary"
+            onClick={handleTest}
+          >
             Tìm Kiếm
           </Button>
         </div>

@@ -41,10 +41,8 @@ function AccountPage() {
     const controller = new AbortController();
     const getUsers = async () => {
       try {
-        console.log("accout effect");
-        const response = await axiosPrivate.get(
-          `/api/getAccountInfo?email=${auth.email}`
-        );
+        console.log("accout page effect");
+        const response = await axiosPrivate.get("/api/getAccountInfo");
         if (response && response.data && isMounted) {
           setUserInfo(response.data.data);
         }
@@ -75,7 +73,6 @@ function AccountPage() {
       } else {
         try {
           const response = await axiosPrivate.post("/api/changePassword", {
-            email: auth.email,
             currentPass,
             newPass,
           });

@@ -64,7 +64,7 @@ const Login = () => {
         setAuth({
           email: response.email,
           accessToken: accessToken,
-          setAuthAdmin: authAdmin,
+          authAdmin: authAdmin,
         });
         navigate(state?.path || "/home", { replace: true });
       } else {
