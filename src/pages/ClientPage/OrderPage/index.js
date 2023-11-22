@@ -1,10 +1,10 @@
 import classNames from "classnames/bind";
 import styles from "./OrderPage.module.scss";
-import InfoAcc from "../../component/Account";
-import PayMent from "../../component/PayMent";
-import FooterPage from "../../component/FooterPage";
+import InfoAcc from "../../../component/Account";
+import PayMent from "../../../component/PayMent";
+import FooterPage from "../../../component/FooterPage";
 import { useState } from "react";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Modal, Result } from "antd";
 

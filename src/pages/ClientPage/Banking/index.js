@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Banking.module.scss";
-import FooterPage from "../../component/FooterPage";
+import FooterPage from "../../../component/FooterPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 

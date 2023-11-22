@@ -14,9 +14,7 @@ function GroupVia({ groupId, groupName }) {
     const fetchVia = async () => {
       if (groupId) {
         try {
-          let response = await axiosPrivate.get(
-            `/api/getVia?groupViaId=${groupId}`
-          );
+          let response = await axiosPrivate.post("/api/getVia", { groupId });
           if (response?.status === 200) {
             setListVia(response.data.data);
           }

@@ -49,7 +49,7 @@ const FormManageGroup = ({ setdataParent }) => {
       align: "center",
     },
     {
-      title: "Action",
+      title: "Thao tác",
       dataIndex: "",
       align: "center",
       width: "30%",
@@ -184,6 +184,7 @@ const FormManageGroup = ({ setdataParent }) => {
   return (
     <div className={cx("wrapper-half-content")}>
       {contextHolder}
+
       <div className={divClass}>
         <h4>{nameBtnAdd === "Thêm" ? nameBtnAdd : "Sửa"} nhóm via</h4>
         <div className={cx("input-group")}>
@@ -197,19 +198,15 @@ const FormManageGroup = ({ setdataParent }) => {
               width: "auto",
               marginRight: "12px",
               maxHeight: "40px",
+              flex: 1,
             }}
             value={groupViaName}
             onChange={(e) => setGroupViaName(e.target.value)}
           />
 
           <Upload {...props} maxCount={1}>
-            <Button
-              style={{ backgroundColor: "#d2b43e" }}
-              type="primary"
-              size="large"
-              icon={<UploadOutlined />}
-            >
-              icon nhóm Via (*.png)
+            <Button danger size="large" icon={<UploadOutlined />}>
+              Chọn ảnh (*.png)
             </Button>
           </Upload>
           <img id="imageGroupVia" alt=" " src={previewUrl} />

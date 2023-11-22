@@ -3,7 +3,6 @@ import styles from "./PayMent.module.scss";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { faCircleCheck, faTicket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +10,6 @@ import { Spin } from "antd";
 
 const cx = classNames.bind(styles);
 function PayMent({ via, p_amount, resultPayment }) {
-  const { auth } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [discountCode, setDiscountCode] = useState("");
@@ -22,29 +20,24 @@ function PayMent({ via, p_amount, resultPayment }) {
 
   useEffect(() => {
     // console.log("effect payment");
-    let isMounted = true;
-    const controller = new AbortController();
     const getUsers = async () => {
       try {
-        const response = await axiosPrivate.get(
-          `/api/getAccountInfo?email=${auth.email}`
-        );
-        if (response && response.data && isMounted) {
-          setBalance(response.data.data.balance);
+        const response = await axiosPrivate.get("/api/getAccountInfo");
+        if (response && response.data && response.data?.errCode === 0) {
+          setBalance(response.data.user.balance);
+        } else {
+          navigate("/login");
+          return null;
         }
       } catch (err) {
         console.log("throw werrror");
         console.error(err);
         navigate("/login", { state: { from: location }, replace: true });
+        return null;
       }
     };
 
     getUsers();
-
-    return () => {
-      isMounted = false;
-      controller.abort();
-    };
   }, []);
 
   const handleSubmitPayMent = async (viaId, p_amount) => {

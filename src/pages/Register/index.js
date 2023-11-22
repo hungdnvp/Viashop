@@ -1,13 +1,14 @@
 import React from "react";
+import useAuth from "../../hooks/useAuth";
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Input } from "antd";
 import styles from "./Register.module.scss";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import { handleRegisterApi } from "../../service/userService";
+import { handleRegisterApi, autoLogin } from "../../service/userService";
 import { message } from "antd";
 import {
   faCheck,
@@ -15,16 +16,18 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const USER_REGEX = /^[A-Za-z][A-Za-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const PHONE_REGEX = /^[0-9]+$/;
 const cx = classNames.bind(styles);
 const Register = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
+  const { setAuth } = useAuth();
 
   const emailRef = useRef();
   const errRef = useRef();
+  const { state } = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,6 +41,21 @@ const Register = () => {
   const [validPwd, setValidPwd] = useState(false);
   const [validName, setValidName] = useState(false);
 
+  useEffect(() => {
+    async function checkLogin() {
+      const response = await autoLogin();
+      if (response?.accessToken) {
+        setAuth({
+          email: response.email,
+          accessToken: response.accessToken,
+          authAdmin: response?.authAdmin || false,
+        });
+        navigate(state?.path || "/home", { replace: true });
+        return null;
+      }
+    }
+    checkLogin();
+  }, []);
   useEffect(() => {
     emailRef.current.focus();
   }, []);
@@ -221,13 +239,6 @@ const Register = () => {
                 }
               />
               <label>Nhập lại mật khẩu</label>
-            </div>
-            <div className={cx("forget")}>
-              <label htmlFor="remember">
-                <input type="checkbox" id="remember" />
-                Nhớ mật khẩu
-              </label>
-              <a href="/#">Quên mật khẩu</a>
             </div>
             <button type="submit">Đăng ký</button>
             <div className={cx("register")}>

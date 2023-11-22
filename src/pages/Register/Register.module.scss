@@ -146,6 +146,9 @@
       cursor: pointer;
       font-size: 1em;
       font-weight: 600;
+      &:hover {
+        background-color: #fb5bb9;
+      }
     }
 
     .register {

@@ -6,13 +6,13 @@ import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { Sidebar, SubMenu, Menu, MenuItem } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
   faClipboardCheck,
   faClockRotateLeft,
   faDollarSign,
   faMoneyCheckDollar,
   faPhone,
+  faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 
@@ -71,7 +71,7 @@ function Sidebars() {
                   : styles[("custom-menu-item", "custom-menu-item-first")]
               }
               component={<Link to="/account" />}
-              icon={<FontAwesomeIcon icon={faUser} />}
+              icon={<FontAwesomeIcon icon={faUserTie} />}
             >
               Tài Khoản
             </MenuItem>
@@ -95,6 +95,19 @@ function Sidebars() {
               </MenuItem>
               <MenuItem
                 className={
+                  path === "history-deposit"
+                    ? styles[
+                        ("custom-menu-item", "custom-menu-item-first", "active")
+                      ]
+                    : styles[("custom-menu-item", "custom-menu-item-first")]
+                }
+                component={<Link to="/history-deposit" />}
+                icon={<FontAwesomeIcon icon={faMoneyCheckDollar} />}
+              >
+                Lịch sử nạp tiền
+              </MenuItem>
+              <MenuItem
+                className={
                   path === "history-transaction"
                     ? styles[
                         ("custom-menu-item", "custom-menu-item-first", "active")
@@ -102,13 +115,6 @@ function Sidebars() {
                     : styles[("custom-menu-item", "custom-menu-item-first")]
                 }
                 component={<Link to="/history-transaction" />}
-                icon={<FontAwesomeIcon icon={faMoneyCheckDollar} />}
-              >
-                Lịch sử giao dịch
-              </MenuItem>
-              <MenuItem
-                className={styles["custom-menu-item"]}
-                component={<Link to="#" />}
                 icon={<FontAwesomeIcon icon={faClockRotateLeft} />}
               >
                 Lịch sử mua hàng

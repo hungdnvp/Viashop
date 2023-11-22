@@ -31,6 +31,7 @@ const Login = () => {
           authAdmin: response?.authAdmin || false,
         });
         navigate(state?.path || "/home", { replace: true });
+        return null;
       }
     }
     checkLogin();
@@ -67,6 +68,7 @@ const Login = () => {
           authAdmin: authAdmin,
         });
         navigate(state?.path || "/home", { replace: true });
+        return null;
       } else {
         setErrMess(response?.errMessage || "Đăng nhập thất bại");
       }
@@ -129,7 +131,7 @@ const Login = () => {
                 />
                 Nhớ mật khẩu
               </label>
-              <a href="/#">Quên mật khẩu</a>
+              <Link to="/forgotpassword">Quên mật khẩu?</Link>
             </div>
             <button type="submit">Đăng nhập</button>
             <div className={cx("register")}>

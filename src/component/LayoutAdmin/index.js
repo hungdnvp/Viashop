@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Layout, Menu } from "antd";
 import classNames from "classnames/bind";
 import styles from "./LayoutAdmin.module.scss";
+import logo2 from "../../asset/images/logonew.jpg";
+import {
+  faChartPie,
+  faGaugeHigh,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 const { Header, Content, Footer, Sider } = Layout;
@@ -22,18 +22,13 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem("Dashboard", "1", <DesktopOutlined />),
-  getItem("Manage Users", "2", <UserOutlined />),
-  getItem("Resoucre Manage", "sub1", <PieChartOutlined />, [
-    getItem("List Via-Import", "3"),
-    getItem("Group/Via", "4"),
-    getItem("Products", "5"),
+  getItem("Dashboard", "1", <FontAwesomeIcon icon={faGaugeHigh} />),
+  getItem("Khách Hàng", "2", <FontAwesomeIcon icon={faUser} />),
+  getItem("Bán Tài Khoản", "sub1", <FontAwesomeIcon icon={faChartPie} />, [
+    getItem("Danh Sách Via", "3"),
+    getItem("Quản Lý Nhóm-Via", "4"),
+    getItem("Tài Khoản", "5"),
   ]),
-  getItem("Team", "sub2", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
-  ]),
-  getItem("Files", "9", <FileOutlined />),
 ];
 
 const LayoutAdmin = ({ children }) => {
@@ -54,9 +49,9 @@ const LayoutAdmin = ({ children }) => {
       case "4":
         navigate("/admin/manage-viapublic");
         break;
-      case "5":
-        navigate("/admin/manage-product");
-        break;
+      // case "5":
+      //   navigate("/admin/manage-product");
+      //   break;
       default:
       // code block
     }
@@ -65,6 +60,7 @@ const LayoutAdmin = ({ children }) => {
     <Layout
       style={{
         minHeight: "100vh",
+        // position: "fixed",
       }}
       className={cx("wrapper-layout")}
     >
@@ -72,6 +68,7 @@ const LayoutAdmin = ({ children }) => {
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
+        style={{ position: "fixed", height: "100%" }}
       >
         <div className={cx("demo-logo-vertical")} />
         <Menu
@@ -85,11 +82,11 @@ const LayoutAdmin = ({ children }) => {
       </Sider>
       <Layout className={cx("layout-content")}>
         <Header className={cx("header-layout-content")}>
-          TRÌNH QUẢN LÝ - ADMIN
+          <img className={cx("lc-img-header")} src={logo2}></img>
         </Header>
         <Content
           style={{
-            margin: "0 16px",
+            margin: "0 16px 0 216px",
           }}
         >
           {children}

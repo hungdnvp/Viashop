@@ -1,5 +1,4 @@
 .wrapper-content {
-  display: flex;
   margin-top: 2rem;
   padding-top: 2.5rem;
   padding: 1.2rem;
@@ -7,6 +6,9 @@
   background-color: #fff;
   box-shadow: 0 0.5rem 2rem #d4dcec;
   border-radius: 0.25rem;
+  .manage-block {
+    display: flex;
+  }
   .wrapper-half-content {
     display: flex;
     flex-direction: column;
@@ -47,13 +49,13 @@
       }
     }
     .add-border {
-      // background-color: #76c96bb0;
+      // background-color: transparent;
       .btn-add {
         background-color: red;
       }
     }
     .add-group-via {
-      margin-top: 82px;
+      margin-top: 150px;
       margin-left: 40px;
       padding-bottom: 32px;
       border-radius: 8px;
@@ -90,4 +92,8 @@
 }
 .wrapper-display {
   padding-top: 32px;
+}
+.block-breadcrumb {
+  display: flex;
+  justify-content: space-between;
 }

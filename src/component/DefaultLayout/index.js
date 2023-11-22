@@ -3,7 +3,6 @@ import Sidebars from "./Sidebar";
 import styles from "./DefaultLayout.module.scss";
 import classNames from "classnames/bind";
 import { ProSidebarProvider } from "react-pro-sidebar";
-import useAuth from "../../hooks/useAuth";
 
 const cx = classNames.bind(styles);
 

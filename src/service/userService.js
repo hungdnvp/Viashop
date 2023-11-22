@@ -1,8 +1,8 @@
 import axios from "./axios";
 
-const handleLoginApi = (username, password) => {
+const handleLoginApi = async (username, password) => {
   try {
-    let result = axios.post(
+    let result = await axios.post(
       "/api/login",
       { username, password },
       { withCredentials: "include" }
@@ -15,10 +15,9 @@ const handleLoginApi = (username, password) => {
     };
   }
 };
-const handleRegisterApi = (inputData) => {
+const handleRegisterApi = async (inputData) => {
   try {
-    let result = axios.post("/api/register", inputData);
-    return result;
+    return await axios.post("/api/register", inputData);
   } catch (err) {
     return {
       errCode: -1,
@@ -26,10 +25,9 @@ const handleRegisterApi = (inputData) => {
     };
   }
 };
-const logoutService = () => {
+const logoutService = async () => {
   try {
-    let data = axios.get("/api/logout", { withCredentials: true });
-    return data;
+    return await axios.get("/api/logout", { withCredentials: true });
   } catch (err) {
     return {
       errCode: -1,
@@ -42,16 +40,25 @@ const autoLogin = async () => {
   return await axios
     .get("api/autoLogin", { withCredentials: true })
     .catch((res) => {
-      console.log(res);
+      console.log("autoLogin fail");
     });
 };
-// const getAccountInfo = (userId) => {
-//   return axios.get(`/api/getAccountInfo?userId=${userId}`);
-// };
+const forGotPass = async (email) => {
+  return await axios.get(`/api/forGotPass?email=${email}`).catch((err) => {
+    console.log("request forgot Password fail");
+  });
+};
+const confirmforGotPass = async (data) => {
+  return await axios.post("/api/confirmForGotPass", data).catch((err) => {
+    console.log("request confirm forgot password fail");
+  });
+};
 export {
   handleLoginApi,
   handleRegisterApi,
   logoutService,
   autoLogin,
+  forGotPass,
+  confirmforGotPass,
   // getAccountInfo,
 };

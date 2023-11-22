@@ -3,8 +3,10 @@ import {
   faTrashCan,
   faPen,
   faFileImport,
-  faL,
+  faCheck,
+  faListCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,6 +20,7 @@ import {
   Spin,
   Space,
   Tooltip,
+  Breadcrumb,
 } from "antd";
 import styles from "./ManageVia.module.scss";
 import classNames from "classnames/bind";
@@ -28,6 +31,10 @@ const { TextArea } = Input;
 
 const ListVia = () => {
   const [data, setData] = useState();
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
   const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
@@ -35,6 +42,7 @@ const ListVia = () => {
   const [modalImport, setmodalImport] = useState(false);
   const [fileImport, setFileImport] = useState();
   const [spin, setSpin] = useState(false);
+
   // state edit item Via
   const [id, setId] = useState();
   const [nameVia, setNameVia] = useState();
@@ -42,7 +50,7 @@ const ListVia = () => {
   const [discountPrice, setDiscountPrice] = useState();
   const [discountCondition, setDiscountCondition] = useState();
   const [descriptions, setDescriptions] = useState("");
-
+  const navigate = useNavigate();
   const handleOnclickEdit = (itemData) => {
     try {
       setId(itemData.id);
@@ -55,6 +63,12 @@ const ListVia = () => {
     } catch (e) {
       messageApi.error("lỗi xử lí chỉnh sửa dữ liệu");
     }
+  };
+  const handleOnclickManageAccounts = (itemData) => {
+    console.log(itemData);
+    navigate("/admin/manage-product", {
+      state: { viaId: itemData.id, groupViaId: itemData.groupViaId },
+    });
   };
   const readFileContents = async (file) => {
     const reader = new FileReader();
@@ -74,6 +88,7 @@ const ListVia = () => {
               viaId: id,
               status: "unsold",
             });
+          return null;
         });
         if (data && data.length > 0) {
           try {
@@ -111,7 +126,7 @@ const ListVia = () => {
     {
       title: "Tên Via",
       dataIndex: "nameVia",
-      width: "22%",
+      // width: "22%",
       align: "center",
     },
     {
@@ -121,9 +136,14 @@ const ListVia = () => {
       align: "center",
     },
     {
+      title: "Số lượng đang bán",
+      dataIndex: "quantity",
+      align: "center",
+    },
+    {
       title: "Giá",
       dataIndex: "price",
-      width: "10%",
+      // width: "10%",
       align: "center",
     },
     {
@@ -153,43 +173,82 @@ const ListVia = () => {
       dataIndex: "descriptions",
       width: "20%",
       align: "center",
+      render: (value) => (
+        <>
+          {value.split("\n").map((item, index) => {
+            return (
+              <li key={index}>
+                <span className={cx("icon-check")}>
+                  <FontAwesomeIcon icon={faCheck} />
+                </span>
+                <span>{item}</span>
+              </li>
+            );
+          })}
+        </>
+      ),
     },
     {
-      title: "Action",
-      align: "center",
-      dataIndex: "",
+      title: "Thao tác",
+      align: "left",
+      // dataIndex: "",
+      width: "15%",
+
       render: (value) => (
-        <Space>
-          <Upload {...props} maxCount={1} accept=".txt" showUploadList={false}>
-            <Tooltip title="nhập sản phẩm từ file" color={"#87d068"}>
-              <Button
-                style={{ backgroundColor: "#0665d0" }}
-                type="primary"
-                size="small"
-                icon={<FontAwesomeIcon icon={faFileImport} />}
-                onClick={() => setId(value.id)}
-              >
-                nhập
-              </Button>
-            </Tooltip>
-          </Upload>
-          <Button
-            type="primary"
-            danger
-            style={{ margin: "0 6px" }}
-            icon={<FontAwesomeIcon icon={faPen} />}
-            size={"small"}
-            onClick={() => handleOnclickEdit(value)} //setOpenModal(true)
-          >
-            sửa
-          </Button>
-          <Button
-            danger
-            icon={<FontAwesomeIcon icon={faTrashCan} />}
-            size={"small"}
-          >
-            xóa
-          </Button>
+        <Space size={[8, 16]} direction="vertical">
+          <Space size={[8, 16]}>
+            <Upload
+              {...props}
+              maxCount={1}
+              accept=".txt"
+              showUploadList={false}
+            >
+              <Tooltip title="nhập tài khoản từ file" color={"#87d068"}>
+                <Button
+                  style={{
+                    backgroundColor: "#0665d0",
+                    padding: "0 6px",
+                  }}
+                  type="primary"
+                  size="large"
+                  icon={<FontAwesomeIcon icon={faFileImport} />}
+                  onClick={() => setId(value.id)}
+                >
+                  nhập
+                </Button>
+              </Tooltip>
+            </Upload>
+            <Button
+              type="primary"
+              danger
+              style={{ backgroundColor: "#1987b3", padding: "0 6px" }}
+              icon={<FontAwesomeIcon icon={faListCheck} />}
+              size={"large"}
+              onClick={() => handleOnclickManageAccounts(value)} //setOpenModal(true)
+            >
+              Quản lý tài khoản
+            </Button>
+          </Space>
+          <Space size={[8, 16]}>
+            <Button
+              danger
+              style={{ padding: "0 16px 0 6px" }}
+              icon={<FontAwesomeIcon icon={faPen} />}
+              size={"large"}
+              onClick={() => handleOnclickEdit(value)} //setOpenModal(true)
+            >
+              sửa
+            </Button>
+            <Button
+              type="primary"
+              danger
+              icon={<FontAwesomeIcon icon={faTrashCan} />}
+              size={"large"}
+              style={{ padding: "0 16px 0 6px" }}
+            >
+              xóa
+            </Button>
+          </Space>
         </Space>
       ),
     },
@@ -199,20 +258,29 @@ const ListVia = () => {
     setLoading(true);
     try {
       console.log("list via fetch");
-      let response = await axiosPrivate.get("/adminApi/getAllVia");
+      let response = await axiosPrivate.post("/adminApi/getAllVia", {
+        pagination,
+      });
       if (response?.status === 200) {
-        const listVia = response.data;
-        console.log("listVia: ", listVia);
-        setData(listVia.data);
+        const data_response = response.data;
+        console.log("listVia: ", data_response);
+        setData(data_response.data);
+        setPagination({
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: data_response.total,
+        });
+        console.log(pagination);
       }
     } catch (e) {
       console.log("fetch list via err");
     }
     setLoading(false);
   };
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [JSON.stringify(pagination)]);
 
   const handleEditVia = async () => {
     if (!id || !nameVia) {
@@ -250,20 +318,49 @@ const ListVia = () => {
       messageApi.error("có lỗi xảy ra !!!");
     }
   };
+  const handleTableChange = (pagi, filters, sorter) => {
+    console.log("pagin", pagi);
+    setPagination({
+      current: pagi.current,
+      pageSize: pagi.pageSize,
+      total: pagi.total,
+    });
+
+    // `dataSource` is useless since `pageSize` changed
+    if (pagination.pageSize !== pagination?.pageSize) {
+      setData([]);
+    }
+  };
   return (
     <Spin spinning={spin}>
       <div className={cx("wrapper-display")}>
         {contextHolder}
+
+        <div className={cx("block-breadcrumb")}>
+          <h4>DANH SÁCH VIA</h4>
+          <Breadcrumb
+            items={[
+              {
+                title: (
+                  <Link to="/admin" style={{ color: "#0665d0" }}>
+                    Admin
+                  </Link>
+                ),
+              },
+              {
+                title: <Link to="#">Danh sách Via</Link>,
+              },
+            ]}
+          />
+        </div>
         <Table
-          scroll={{
-            y: "max-content",
-            x: "max-content",
-          }}
-          pagination={false}
+          pagination={pagination}
           columns={columns}
           dataSource={data}
           loading={loading}
           tableLayout={"auto"}
+          bordered
+          onChange={handleTableChange}
         />
         <Modal
           title="Chỉnh sửa thông tin Via"
@@ -297,7 +394,7 @@ const ListVia = () => {
                 formatter={(value) =>
                   `VNĐ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }
-                parser={(value) => value.replace(/\VNĐ\s?|(,*)/g, "")}
+                parser={(value) => value.replace(/VNĐ\s?|(,*)/g, "")}
                 style={{
                   backgroundColor: "#e9ecef",
                   borderRadius: "0.25rem",
@@ -316,7 +413,7 @@ const ListVia = () => {
                 formatter={(value) =>
                   `VNĐ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }
-                parser={(value) => value.replace(/\VNĐ\s?|(,*)/g, "")}
+                parser={(value) => value.replace(/VNĐ\s?|(,*)/g, "")}
                 style={{
                   backgroundColor: "#e9ecef",
                   borderRadius: "0.25rem",

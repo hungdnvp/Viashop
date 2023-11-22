@@ -49,6 +49,8 @@
         align-items: center;
         h4 {
           width: 100%;
+          flex: 0 0 33.333333%;
+          max-width: 33.333333%;
           display: inline-block;
           padding-right: 14px;
           padding-left: 14px;
@@ -60,6 +62,8 @@
         }
         span {
           width: 100%;
+          flex: 0 0 66.666667%;
+          max-width: 66.666667%;
           font-weight: 400;
           line-height: 1.5;
           color: #495057;
@@ -68,7 +72,7 @@
         }
 
         .item-info {
-          padding: 1.8rem 1rem;
+          padding: 1rem 1rem;
           width: 50%;
           display: flex;
           justify-content: flex-start;
@@ -89,6 +93,7 @@
           justify-content: flex-end;
           span {
             color: white;
+            max-width: 100%;
           }
         }
 

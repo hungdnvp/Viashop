@@ -6,8 +6,7 @@ import styles from "./AccountPage.module.scss";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { message } from "antd";
-import useAuth from "../../hooks/useAuth";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import {
   faCheck,
   faInfoCircle,
@@ -28,7 +27,6 @@ function AccountPage() {
   const [validPwd, setValidPwd] = useState(false);
 
   const location = useLocation();
-  const { auth } = useAuth();
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -37,28 +35,25 @@ function AccountPage() {
   }, [newPass]);
 
   useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
     const getUsers = async () => {
       try {
         console.log("accout page effect");
         const response = await axiosPrivate.get("/api/getAccountInfo");
-        if (response && response.data && isMounted) {
-          setUserInfo(response.data.data);
+        if (response && response.data && response.data.errCode === 0) {
+          setUserInfo(response.data.user);
+        } else {
+          navigate("/login");
+          return null;
         }
       } catch (err) {
         console.log("throw werrror");
         console.error(err);
         navigate("/login", { state: { from: location }, replace: true });
+        return null;
       }
     };
 
     getUsers();
-
-    return () => {
-      isMounted = false;
-      controller.abort();
-    };
   }, []);
   const confirmChangePass = async () => {
     setCurrentPass("");
@@ -183,7 +178,7 @@ function AccountPage() {
             </div>
             <div className={cx("item-info", "btn-changePass")}>
               <Button type="primary" size={"large"} onClick={confirmChangePass}>
-                Lưu lại
+                Lưu thay đổi
               </Button>
             </div>
           </div>
