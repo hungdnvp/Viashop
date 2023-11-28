@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import styles from "./HomePage.module.scss";
 import classNames from "classnames/bind";
-import BlockSearch from "../../component/BlockSearch";
-import GroupVia from "../../component/GroupVia";
+import BlockSearch from "../../../component/BlockSearch";
+import GroupVia from "../../../component/GroupVia";
 
 const cx = classNames.bind(styles);
 function Home() {

@@ -1,4 +1,4 @@
-import Home from "../pages/HomePage";
+import Home from "../pages/ClientPage/HomePage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import LayoutHeaderOnly from "../component/LayoutHeaderOnly";
@@ -16,6 +16,7 @@ import ManageVia from "../pages/AdminPage/ManageVia/ManageVia";
 import ListVia from "../pages/AdminPage/ManageVia/ListVia";
 import ListProduct from "../pages/AdminPage/ManageProduct/ListProduct";
 import ForgotPassword from "../pages/ForGotPass/index.js";
+import GroupViaPage from "../pages/ClientPage/GroupViaPage/index.js";
 function ForbidenLayout({ children }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>{children}</div>
@@ -42,6 +43,7 @@ const privateRoutes = [
   { path: "banking", component: Banking },
   { path: "history-transaction", component: HistoryTransaction },
   { path: "history-deposit", component: HistoryDeposit },
+  { path: "group-page/:groupId", component: GroupViaPage },
 
   /////////******ADMIN */
   { path: "admin", component: HomeAdmin, layout: LayoutAdmin },

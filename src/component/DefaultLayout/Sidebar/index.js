@@ -137,7 +137,7 @@ function Sidebars() {
                   return (
                     <MenuItem
                       key={index}
-                      component={<Link to="#" />}
+                      component={<Link to={`/group-page/${groupVia.id}`} />}
                       className={styles["custom-menu-item"]}
                       icon={
                         <img
