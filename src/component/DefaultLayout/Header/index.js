@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import { Button } from "antd";
 import DropdownUser from "./DropdownUser";
 import useAuth from "../../../hooks/useAuth";
-import logo2 from "../../../asset/images/logonew.jpg";
+import logo2 from "../../../asset/images/logonew.png";
 import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
@@ -13,21 +13,13 @@ function Header({ transparent = false }) {
   const accessToken = auth?.accessToken;
   const authAdmin = auth?.authAdmin;
   const classes = cx("wrapper", { transparent });
-  const navigate = useNavigate();
-  const location = useLocation();
 
-  useEffect(() => {
-    const path = location.pathname;
-    if ((path === "/" || path === "/home") && !auth.accessToken) {
-      navigate("/login");
-    }
-  }, [auth.accessToken]);
   return (
     <div className={classes}>
       <div className={cx("header-content")}>
         <div className={cx("left-content")}>
           <Link to="/">
-            <img className={cx("lc-img-header")} src={logo2}></img>
+            <img className={cx("lc-img-header")} src={logo2} alt="logo"></img>
           </Link>
         </div>
         <div className={cx("center-content")}></div>

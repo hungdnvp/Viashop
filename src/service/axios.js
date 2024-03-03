@@ -1,8 +1,8 @@
 import axios from "axios";
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
+const URL_BACKEND = "http://localhost:9090";
 const instance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: URL_BACKEND,
   // withCredentials: true,
 });
 instance.defaults.headers.post["Content-Type"] =
@@ -12,7 +12,7 @@ instance.interceptors.response.use((response) => {
 });
 
 export const axiosPrivate = axios.create({
-  baseURL: BASE_URL,
+  baseURL: URL_BACKEND,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });

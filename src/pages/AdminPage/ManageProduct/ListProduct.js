@@ -99,7 +99,7 @@ const ListProduct = () => {
     setLoading(true);
     try {
       console.log("list product fetch");
-      let response = await axiosPrivate.post("/adminApi/viewProduct", {
+      let response = await axiosPrivate.post("/apiAdmin/viewProduct", {
         viaId: viaId,
         pagination: pagination,
       });

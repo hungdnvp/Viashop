@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Layout, Menu } from "antd";
 import classNames from "classnames/bind";
 import styles from "./LayoutAdmin.module.scss";
-import logo2 from "../../asset/images/logonew.jpg";
+import logo2 from "../../asset/images/logonew.png";
 import {
   faChartPie,
   faGaugeHigh,
@@ -82,7 +82,7 @@ const LayoutAdmin = ({ children }) => {
       </Sider>
       <Layout className={cx("layout-content")}>
         <Header className={cx("header-layout-content")}>
-          <img className={cx("lc-img-header")} src={logo2}></img>
+          <img className={cx("lc-img-header")} src={logo2} alt="img-logo"></img>
         </Header>
         <Content
           style={{

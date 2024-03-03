@@ -30,7 +30,7 @@ const FormInputVia = ({ dataGroupViaProp }) => {
         descriptions: descriptions,
       };
       try {
-        let response = await axiosPrivate.post("/adminApi/addVia", data);
+        let response = await axiosPrivate.post("/apiAdmin/addVia", data);
         if (response?.status === 200) {
           messageApi.info("Thêm via thành công!");
         }

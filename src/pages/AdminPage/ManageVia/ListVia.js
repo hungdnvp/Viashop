@@ -258,7 +258,7 @@ const ListVia = () => {
     setLoading(true);
     try {
       console.log("list via fetch");
-      let response = await axiosPrivate.post("/adminApi/getAllVia", {
+      let response = await axiosPrivate.post("/apiAdmin/getAllVia", {
         pagination,
       });
       if (response?.status === 200) {
@@ -290,7 +290,7 @@ const ListVia = () => {
       setOpenModal(false);
       try {
         console.log("edit via fetch");
-        let response = await axiosPrivate.post("/adminApi/editVia", {
+        let response = await axiosPrivate.post("/apiAdmin/editVia", {
           id: id,
           nameVia: nameVia,
           price: price,

@@ -140,7 +140,7 @@ const FormManageGroup = ({ setdataParent }) => {
       } else {
         try {
           let response = await axiosPrivate.post(
-            "/adminApi/addGroupVia?groupViaName",
+            "/apiAdmin/addGroupVia?groupViaName",
             { groupViaName: groupViaName, image: imageGroupVia }
           );
           if (response?.status === 200) {
@@ -171,7 +171,7 @@ const FormManageGroup = ({ setdataParent }) => {
         image: imageGroupVia,
         id: groupViaId,
       };
-      let response = await axiosPrivate.post("/adminApi/editGroupVia", data);
+      let response = await axiosPrivate.post("/apiAdmin/editGroupVia", data);
       if (response?.status === 200) {
         messageApi.success("Sửa nhóm via thành công");
       } else {

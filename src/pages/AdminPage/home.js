@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import { Col, Row, Breadcrumb } from "antd";
 import styles from "./Home.module.scss";
@@ -6,6 +6,17 @@ import { Link } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 function HomeAdmin() {
+  const month = new Date().getMonth() + 1;
+  const [labelDashboard, setLabelDashboard] = useState({
+    totalUser: null,
+    totalDeposit: null,
+    totalSoldProduct: null,
+    totalDepositMonth: null,
+  });
+
+  useEffect(() => {
+    //
+  }, []);
   return (
     <div className={cx("wraper")}>
       <div className={cx("block-breadcrumb")}>
@@ -67,7 +78,7 @@ function HomeAdmin() {
             <div className={cx("small-box", "bg-danger")}>
               <div className={cx("inner")}>
                 <h3>2000</h3>
-                <p>Tổng tiền nạp tháng 11</p>
+                <p>Tổng tiền nạp tháng {month}</p>
                 <div className={cx("icon")}></div>
                 <Link to="">Xem thêm</Link>
               </div>

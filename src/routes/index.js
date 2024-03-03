@@ -44,8 +44,10 @@ const privateRoutes = [
   { path: "history-transaction", component: HistoryTransaction },
   { path: "history-deposit", component: HistoryDeposit },
   { path: "group-page/:groupId", component: GroupViaPage },
+];
+/////////******ADMIN */
 
-  /////////******ADMIN */
+const adminRouters = [
   { path: "admin", component: HomeAdmin, layout: LayoutAdmin },
   { path: "admin/manage-user", component: ManageUserPage, layout: LayoutAdmin },
   { path: "admin/manage-viapublic", component: ManageVia, layout: LayoutAdmin },
@@ -61,4 +63,4 @@ const privateRoutes = [
   },
 ];
 
-export { publicRoutes, privateRoutes };
+export { publicRoutes, privateRoutes, adminRouters };

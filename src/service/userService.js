@@ -9,30 +9,21 @@ const handleLoginApi = async (username, password) => {
     );
     return result;
   } catch (err) {
-    return {
-      errCode: -1,
-      errMessage: "No Server Response",
-    };
+    console.log("login fail");
   }
 };
 const handleRegisterApi = async (inputData) => {
   try {
     return await axios.post("/api/register", inputData);
   } catch (err) {
-    return {
-      errCode: -1,
-      errMessage: "No Server Response",
-    };
+    console.log("register fail");
   }
 };
 const logoutService = async () => {
   try {
     return await axios.get("/api/logout", { withCredentials: true });
   } catch (err) {
-    return {
-      errCode: -1,
-      errMessage: "No Server Response",
-    };
+    console.log("register fail");
   }
 };
 

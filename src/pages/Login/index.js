@@ -30,7 +30,10 @@ const Login = () => {
           accessToken: response.accessToken,
           authAdmin: response?.authAdmin || false,
         });
+        console.log("before navigate");
         navigate(state?.path || "/home", { replace: true });
+        console.log("after navigate");
+
         return null;
       }
     }
@@ -57,6 +60,7 @@ const Login = () => {
     try {
       const response = await handleLoginApi(username, password);
       const accessToken = response?.accessToken;
+      console.log(response);
       const authAdmin = response?.authAdmin === true ? true : false;
       if (response?.accessToken) {
         console.log("set accessToken: ", { accessToken });

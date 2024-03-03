@@ -256,7 +256,7 @@ const ManageUserPage = () => {
     try {
       console.log("accout effect");
       let response = await axiosPrivate.get(
-        `/adminApi/getAllUser?page=${pagination.current}&limit=${pagination.pageSize}`
+        `/apiAdmin/getAllUser?page=${pagination.current}&limit=${pagination.pageSize}`
       );
       if (response?.status === 200 && response.data.errCode === 0) {
         response = response.data;

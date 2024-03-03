@@ -26,74 +26,87 @@
     }
     .banking-container {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       .banking-area {
         width: 75%;
         padding: 0 3rem;
         display: flex;
         padding: 0.5rem;
+        flex-direction: column;
         justify-content: center;
-        .item-left {
-          width: 45%;
-          background: linear-gradient(134deg, #04a468 0%, #0d788c 100%);
-          border-radius: 10px;
-          padding: 15px;
-          p {
-            font-size: 20px;
-            color: #fff;
-            font-weight: 500;
-            border-bottom: 1px dotted #fff;
-            margin-bottom: 2rem;
-            span {
-              margin-left: 20px;
+        .block-info-banking {
+          display: flex;
+          flex-direction: row;
+          .item-left {
+            width: 50%;
+            background: linear-gradient(134deg, #04a468 0%, #0d788c 100%);
+            border-radius: 10px;
+            padding: 15px;
+            p {
+              font-size: 16px;
+              color: #fff;
+              font-weight: 400;
+              border-bottom: 1px dotted #fff;
+              margin-bottom: 1rem;
+              span {
+                margin-left: 20px;
+                font-weight: 600;
+                font-size: 20px;
+              }
+              span:nth-child(1) {
+                font-weight: 700;
+                margin-left: 10px;
+              }
             }
-            span:nth-child(1) {
-              font-weight: 700;
-              font-size: 17px;
-              margin-left: 10px;
+            .content-sub {
+              span {
+                font-size: 16px;
+                color: #fff;
+                font-weight: 500;
+                .text-bold {
+                  font-weight: 700;
+                  font-size: 20px;
+                  margin-left: 10px;
+                }
+              }
             }
           }
-          .content-sub {
-            font-size: 16px;
-            color: #fff;
-            font-weight: 500;
-            .text-bold {
-              font-weight: 700;
+          .item-right {
+            width: 55%;
+            padding: 4px 0 0 20px;
+            height: 100%;
+            h3 {
               font-size: 20px;
-              margin-left: 10px;
+              color: #111036;
+              text-align: center;
+              font-weight: 700;
+            }
+            p {
+              font-size: 15px;
+              margin: 10px 0 5px 0;
+              color: #04a468;
+              font-weight: 500;
+              text-align: center;
+              span {
+                padding: 0 2px;
+                color: #04a468;
+                font-weight: 700;
+                font-size: 17px;
+              }
+            }
+            .img-item {
+              display: flex;
+              justify-content: center;
+              img {
+                width: 60%;
+              }
             }
           }
         }
       }
-      .item-right {
-        width: 55%;
-        padding: 30px;
-        h3 {
-          font-size: 20px;
-          color: #111036;
-          text-align: center;
-          font-weight: 700;
-        }
-        p {
-          font-size: 15px;
-          margin: 10px 0 5px 0;
-          color: #04a468;
-          font-weight: 500;
-          text-align: center;
-          span {
-            padding: 0 2px;
-            color: #04a468;
-            font-weight: 700;
-            font-size: 17px;
-          }
-        }
-        .img-item {
-          display: flex;
-          justify-content: center;
-          img {
-            width: 80%;
-          }
-        }
+      .process-banking {
+        width: 100%;
       }
     }
 
