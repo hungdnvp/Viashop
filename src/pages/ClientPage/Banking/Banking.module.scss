@@ -35,6 +35,14 @@
         padding: 0.5rem;
         flex-direction: column;
         justify-content: center;
+        .timmer {
+          display: flex;
+          justify-content: center;
+          color: red;
+          font-size: 20px;
+          font-weight: 500;
+          padding: 8px 0;
+        }
         .block-info-banking {
           display: flex;
           flex-direction: row;
@@ -61,14 +69,9 @@
             }
             .content-sub {
               span {
-                font-size: 16px;
-                color: #fff;
-                font-weight: 500;
-                .text-bold {
-                  font-weight: 700;
-                  font-size: 20px;
-                  margin-left: 10px;
-                }
+                font-size: 18px;
+                color: #d7e939;
+                font-weight: 400;
               }
             }
           }
